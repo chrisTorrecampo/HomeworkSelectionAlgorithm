@@ -15,9 +15,13 @@ public:
 	Scheduler(std::shared_ptr<CPU> c, std::shared_ptr<ScheduleStrategy> s);
 	~Scheduler();
 
+	Scheduler(const Scheduler &s);
+	Scheduler& operator=(const Scheduler &s);
+
 	void run();
 
 	void addNewThread(std::shared_ptr<Thread> thread);
+	void addNewThread(std::vector<size_t> burstT);
 	void readyThread(std::shared_ptr<Thread> thread);//move a specific thread from Blocked List to Ready List
 	void blockThread(std::shared_ptr<Thread> thread);//move a specific thread from Ready List to Blocked List
 	std::shared_ptr<Thread> preempt(std::shared_ptr<Thread> thread);//preempt the current thread on the CPU
@@ -25,16 +29,19 @@ public:
 
 	bool isFinished();
 	size_t numFinished();
+
+	void setStrat(std::shared_ptr<ScheduleStrategy> s);
+
 	std::shared_ptr<Context> getContext();
+	//std::shared_ptr<Context> getContext(Scheduler* s);
+
+	std::shared_ptr<Context> context;
+	std::shared_ptr<ScheduleStrategy> strat;
 
 private:
 	std::shared_ptr<CPU> cpu;
-	std::shared_ptr<std::list<std::shared_ptr<Thread>>> finishedList;
-	std::shared_ptr<std::list<std::shared_ptr<Thread>>> readyList;
-	std::shared_ptr<std::list<std::shared_ptr<Thread>>> blockedList;
-
-	std::shared_ptr<Context> context;
-
-	std::shared_ptr<ScheduleStrategy> strat;
+	std::shared_ptr<std::list<std::shared_ptr<Thread>>> finishedList = std::make_shared<std::list<std::shared_ptr<Thread>>>();;
+	std::shared_ptr<std::list<std::shared_ptr<Thread>>> readyList = std::make_shared<std::list<std::shared_ptr<Thread>>>();;
+	std::shared_ptr<std::list<std::shared_ptr<Thread>>> blockedList = std::make_shared<std::list<std::shared_ptr<Thread>>>();;
 };
 

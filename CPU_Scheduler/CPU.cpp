@@ -10,10 +10,13 @@ CPU::~CPU()
 }
 
 bool CPU::run() {//run this every clock tick
-	currTime++; //TODO: change this to use a real time datatype at some point
-	burstTimeLeft--;
-
-	return getStatus();
+	if (getStatus()) {
+		currTime++; //TODO: change this to use a real time datatype at some point
+		burstTimeLeft--;
+		return true;
+	} else {
+		return false;
+	}
 }
 
 bool CPU::getStatus() {

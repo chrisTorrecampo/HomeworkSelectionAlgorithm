@@ -26,6 +26,24 @@ public:
 
 	}
 
+	Thread(const Thread &t) {
+		waitingTime = t.waitingTime;
+		lastReadyTime = t.lastReadyTime;
+		burstTime = t.burstTime;
+		needsIO = t.needsIO;
+	}
+
+	Thread& operator=(const Thread &t) {
+		if (this != &t) {
+			waitingTime = t.waitingTime;
+			lastReadyTime = t.lastReadyTime;
+			burstTime = t.burstTime;
+			needsIO = t.needsIO;
+		}
+		
+		return *this;
+	}
+
 	void addWaitTime(size_t currTime) {//TODO: recalculates wait time everytime it gets schedualed. potential problem if never gets schedualed. Will we still need wait time in such a case? 
 		waitingTime += currTime - lastReadyTime;
 		lastReadyTime = currTime;

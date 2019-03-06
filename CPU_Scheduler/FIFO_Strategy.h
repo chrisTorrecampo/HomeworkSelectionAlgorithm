@@ -4,7 +4,7 @@
 class FIFO_Strategy : public ScheduleStrategy {
 public:
 
-	FIFO_Strategy(std::shared_ptr<Context> c);
+	FIFO_Strategy();
 	void run();
 	void schedule();
 	void addThread();
