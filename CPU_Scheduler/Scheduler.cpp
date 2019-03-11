@@ -80,7 +80,7 @@ std::shared_ptr<Thread> Scheduler::preempt(std::shared_ptr<Thread> thread) { //p
 }
 
 void Scheduler::finishThread(std::shared_ptr<Thread> thread) { //move a specific thread from Ready List to Finished List
-	//if (std::find(readyList->begin(), readyList->end(), thread) != readyList->end()) { //TODO: use the iterator to make this more effecient
+	//if (std::find(readyList->begin(), readyList->end(), thread) != readyList->end()) { //TODO: use the iterator to make this more effecient //TODO: this doesn't work
 		readyList->remove(thread);
 		finishedList->push_back(thread);
 	//}
@@ -96,7 +96,7 @@ size_t Scheduler::numFinished(){
 
 void Scheduler::setStrat(std::shared_ptr<ScheduleStrategy> s){
 	strat = s;
-	strat->context = getContext();
+	strat->setContext(getContext());
 }
 
 /*
