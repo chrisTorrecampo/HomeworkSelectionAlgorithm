@@ -20,7 +20,18 @@ void RoundRobin_Strategy::run() {
 }
 
 void RoundRobin_Strategy::schedule() {
-	prempt();
+	time_since_last_prempt = 0;
+
+	std::shared_ptr<Thread> threadToSchedule = *nextToSchedule;
+	context->ReadyList->erase(nextToSchedule++);
+	if (nextToSchedule == context->ReadyList->end) {
+		nextToSchedule = context->ReadyList->begin();
+	}
+
+	std::shared_ptr<Thread> lastThread = context->scheduler->preempt(threadToSchedule); //move scheduled thread to CPU and save the last thread
+	if (lastThread != NULL) {
+		context->scheduler->finishThread(lastThread);
+	}
 }
 
 void RoundRobin_Strategy::addThread() {
@@ -43,5 +54,15 @@ void RoundRobin_Strategy::getNext() {
 
 void RoundRobin_Strategy::prempt(){
 	time_since_last_prempt = 0;
-	//TODO: do stuff here 
+
+	std::shared_ptr<Thread> threadToSchedule = *nextToSchedule;
+	context->ReadyList->erase(nextToSchedule++);
+	if (nextToSchedule == context->ReadyList->end) {
+		nextToSchedule = context->ReadyList->begin();
+	}
+
+	std::shared_ptr<Thread> lastThread = context->scheduler->preempt(threadToSchedule); //move scheduled thread to CPU and save the last thread
+	if (lastThread != NULL) {
+		context->scheduler->addNewThread(lastThread);
+	}
 }

@@ -79,11 +79,8 @@ std::shared_ptr<Thread> Scheduler::preempt(std::shared_ptr<Thread> thread) { //p
 	return cpu->setWorkingThread(thread);
 }
 
-void Scheduler::finishThread(std::shared_ptr<Thread> thread) { //move a specific thread from Ready List to Finished List
-	//if (std::find(readyList->begin(), readyList->end(), thread) != readyList->end()) { //TODO: use the iterator to make this more effecient //TODO: this doesn't work
-		readyList->remove(thread);
+void Scheduler::finishThread(std::shared_ptr<Thread> thread) { //move a specific thread from CPU to Finished List
 		finishedList->push_back(thread);
-	//}
 }
 
 bool Scheduler::isFinished(){
