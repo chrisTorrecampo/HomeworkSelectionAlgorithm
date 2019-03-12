@@ -42,6 +42,9 @@
     <ClInclude Include="FitnessStrategy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FitnessContext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CPU.cpp">

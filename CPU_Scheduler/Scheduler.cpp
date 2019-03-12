@@ -6,11 +6,13 @@
 Scheduler::Scheduler() { //needs Strategy assigned after the constructor because strategy needs a pointer the the scheduler
 	cpu = std::make_shared<CPU>();
 	//strat = std::make_shared<FIFO_Strategy>(getContext(this));
+	contextSwitchTime = 0;
 }
 
-Scheduler::Scheduler(std::shared_ptr<CPU> c, std::shared_ptr<ScheduleStrategy> s){
+Scheduler::Scheduler(std::shared_ptr<CPU> c, std::shared_ptr<ScheduleStrategy> s, size_t cst){
 	cpu = c;
 	strat = s;
+	contextSwitchTime = cst;
 }
 
 Scheduler::~Scheduler() {
@@ -118,4 +120,12 @@ std::shared_ptr<Context> Scheduler::getContext() {
 
 std::shared_ptr<Thread> Scheduler::getCurrentWorkingThread() {
 	return cpu->getWorkingThread();
+}
+
+std::shared_ptr<FitnessContext> Scheduler::getFitnessContext() {
+	return std::shared_ptr<FitnessContext>();//TODO: do this next
+}
+
+size_t Scheduler::getLengthOfCurrentBurst() {
+	return cpu->getLengthOfCurrentBurst();
 }

@@ -120,6 +120,7 @@
     <ClInclude Include="Context.h" />
     <ClInclude Include="CPU.h" />
     <ClInclude Include="FIFO_Strategy.h" />
+    <ClInclude Include="FitnessContext.h" />
     <ClInclude Include="FitnessStrategy.h" />
     <ClInclude Include="GeneticOrganism_Strategy.h" />
     <ClInclude Include="RoundRobin_Strategy.h" />

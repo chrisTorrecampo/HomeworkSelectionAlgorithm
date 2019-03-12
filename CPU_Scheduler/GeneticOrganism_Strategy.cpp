@@ -25,8 +25,14 @@ void GeneticOrganism_Strategy::schedule(){
 	std::shared_ptr<Thread> mostFit = context->ReadyList->front();
 	double greatestFitness = lowest_double;
 	std::list<std::shared_ptr<Thread>>::iterator it;
+	size_t pos = 0;
 	for (it = context->ReadyList->begin(); it != context->ReadyList->end(); ++it) {
-		double threadFitness = fit->threadFitness(*it); //TODO: this will eventually need more params
+		pos++;
+		double threadFitness = fit->threadFitness(*it,
+												(*it)->waitingTime,
+												((double)pos)/context->ReadyList->size(),
+												context->scheduler->getFitnessContext()
+		);
 		if (threadFitness > greatestFitness) {
 			greatestFitness = threadFitness;
 			mostFit = *it;
@@ -48,15 +54,25 @@ void GeneticOrganism_Strategy::checkFitness(){
 	std::shared_ptr<Thread> mostFit = context->ReadyList->front();
 	double greatestFitness = lowest_double;
 	std::list<std::shared_ptr<Thread>>::iterator it;
+	size_t pos = 0;
 	for (it = context->ReadyList->begin(); it != context->ReadyList->end(); ++it) {
-		double threadFitness = fit->threadFitness(*it); //TODO: this will eventually need more params
+		pos++;
+		double threadFitness = fit->threadFitness(*it,
+			(*it)->waitingTime,
+			((double)pos) / context->ReadyList->size(),
+			context->scheduler->getFitnessContext()
+		);
 		if (threadFitness > greatestFitness) {
 			greatestFitness = threadFitness;
 			mostFit = *it;
 		}
 	}
 	
-	double cpuFitness = fit->cpuFitness(context->scheduler->getCurrentWorkingThread());
+	double cpuFitness = fit->cpuFitness(context->scheduler->getCurrentWorkingThread(),
+										context->scheduler->getLengthOfCurrentBurst(),
+										context->scheduler->getContextSwitchTime(),
+										context->scheduler->getFitnessContext()
+	);
 	if (greatestFitness > cpuFitness) {
 		prempt(mostFit);
 	}
