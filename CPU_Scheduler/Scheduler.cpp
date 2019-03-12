@@ -115,3 +115,7 @@ std::shared_ptr<Context> Scheduler::getContext() {
 
 	return context;
 }
+
+std::shared_ptr<Thread> Scheduler::getCurrentWorkingThread() {
+	return cpu->getWorkingThread();
+}
