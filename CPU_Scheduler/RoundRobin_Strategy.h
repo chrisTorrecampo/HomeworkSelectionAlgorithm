@@ -13,10 +13,12 @@ public:
 private:
 	int timeQuantum;
 	int time_since_last_prempt;
+	bool initialized = false;
 
 	std::list<std::shared_ptr<Thread>>::const_iterator nextToSchedule; //this gets initialized when we recieve context.
 
-	void getNext();
+	std::shared_ptr<Thread> getNext();
+	std::shared_ptr<Thread> eraseCurr();
 	void prempt();
 };
 

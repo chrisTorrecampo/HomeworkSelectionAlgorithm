@@ -51,13 +51,14 @@ std::shared_ptr<Thread> CPU::setWorkingThread(std::shared_ptr<Thread> newThread)
 	if (burstTimeLeft <= 0) {//TODO: this will become more important if/when we actually use a proper time datatype
 		currThread->burstTime.pop_back();
 	} else {
-		currThread->burstTime.at(currThread->burstTime.max_size() - 1) = burstTimeLeft;
+		currThread->burstTime.at(currThread->burstTime.size() - 1) = burstTimeLeft;
 	}
 	
 	std::shared_ptr<Thread> oldThread = currThread;
 	currThread = newThread;
 	newThread->addWaitTime(currTime);
 	burstTimeLeft = currThread->burstTime.back();
+	
 	currBurstStart = currTime;
 
 	return oldThread;

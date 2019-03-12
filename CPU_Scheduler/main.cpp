@@ -2,10 +2,11 @@
 #include <vector>
 #include "Scheduler.h"
 #include "FIFO_Strategy.h"
+#include "RoundRobin_Strategy.h"
 
 int main(int argc, char *argv[]){
 	std::shared_ptr<Scheduler> s = std::make_shared<Scheduler>();
-	s->setStrat(std::make_shared<FIFO_Strategy>());
+	s->setStrat(std::make_shared<RoundRobin_Strategy>(4));
 
 	for (int i = 0; i < 10; i++) {
 		s->addNewThread(std::vector<size_t>{10});
