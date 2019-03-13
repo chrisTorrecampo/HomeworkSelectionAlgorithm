@@ -48,6 +48,9 @@
     <ClInclude Include="Perceptron.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Perceptron_FitnessStrategy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CPU.cpp">
@@ -66,6 +69,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GeneticOrganism_Strategy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Perceptron_FitnessStrategy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
