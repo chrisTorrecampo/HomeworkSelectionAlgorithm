@@ -11,6 +11,12 @@ public:
 		BL_RL_S = ((double)bls) / ((double)rls);
 		FL_RL_S = ((double)fls) / ((double)rls);
 		FL_BL_S = ((double)fls) / ((double)bls);
+		if (rls == 0) { //TODO: make this cleaner
+			BL_RL_S = FL_RL_S = 0;
+		}
+		if (bls == 0) {
+			FL_BL_S = 0;
+		}
 
 		timeSinceLastPremption = tslp;
 		timeSinceLastSwitched = tsls;

@@ -50,16 +50,21 @@ void GeneticOrganism_Strategy::setContext(std::shared_ptr<Context> c){
 	context = c;
 }
 
-void GeneticOrganism_Strategy::checkFitness(){
+void GeneticOrganism_Strategy::checkFitness() {
 	std::shared_ptr<Thread> mostFit = context->ReadyList->front();
 	double greatestFitness = lowest_double;
 	std::list<std::shared_ptr<Thread>>::iterator it;
 	size_t pos = 0;
 	for (it = context->ReadyList->begin(); it != context->ReadyList->end(); ++it) {
 		pos++;
+		double posRatio = ((double)pos) / context->ReadyList->size();
+		if (context->ReadyList->size() == 0) {
+			//TODO: somthing went horribly wrong if we got here
+			posRatio = 0;
+		}
 		double threadFitness = fit->threadFitness(*it,
 			(*it)->waitingTime,
-			((double)pos) / context->ReadyList->size(),
+			posRatio,
 			context->scheduler->getFitnessContext((*it))
 		);
 		if (threadFitness > greatestFitness) {
