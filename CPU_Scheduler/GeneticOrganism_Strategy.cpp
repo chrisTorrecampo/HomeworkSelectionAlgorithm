@@ -92,8 +92,10 @@ void GeneticOrganism_Strategy::prempt(std::shared_ptr<Thread> threadToSchedule){
 			context->scheduler->addNewThread(lastThread);
 			return;
 		}
+		else {
+			context->scheduler->finishThread(lastThread);
+		}
 	}
 
 	context->ReadyList->remove(threadToSchedule);
-	context->scheduler->finishThread(lastThread);
 }

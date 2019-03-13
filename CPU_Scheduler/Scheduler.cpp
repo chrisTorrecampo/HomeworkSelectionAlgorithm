@@ -137,3 +137,29 @@ std::shared_ptr<FitnessContext> Scheduler::getFitnessContext(std::shared_ptr<Thr
 size_t Scheduler::getLengthOfCurrentBurst() {
 	return cpu->getLengthOfCurrentBurst();
 }
+
+double Scheduler::getMeanWaitTime() {
+	if (finishedList->size() == 0) {
+		//TODO: something went wrong. Throw something here
+	}
+	double meanWaitTime = 0;
+	std::list<std::shared_ptr<Thread>>::iterator it;
+	for (it = finishedList->begin(); it != finishedList->end(); ++it) {
+		meanWaitTime += (*it)->waitingTime;
+	}
+
+	return meanWaitTime / finishedList->size();
+}
+
+double Scheduler::getMeanSquaredWaitTime() {
+	if (finishedList->size() == 0) {
+		//TODO: something went wrong. Throw something here
+	}
+	double meanWaitTime = 0;
+	std::list<std::shared_ptr<Thread>>::iterator it;
+	for (it = finishedList->begin(); it != finishedList->end(); ++it) {
+		meanWaitTime += pow((*it)->waitingTime, 2.0);
+	}
+
+	return meanWaitTime / finishedList->size();
+}

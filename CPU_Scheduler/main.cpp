@@ -41,6 +41,8 @@ int main(int argc, char *argv[]){
 		std::cout << s->numFinished() << "\n";
 	}
 
+	std::cout << s->getMeanWaitTime() << "\n";
+	std::cout << s->getMeanSquaredWaitTime() << "\n";
 
 	int x;
 	std::cin >> x;
