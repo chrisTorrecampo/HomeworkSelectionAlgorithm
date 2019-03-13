@@ -78,6 +78,7 @@ void Scheduler::blockThread(std::shared_ptr<Thread> thread) { //move a specific 
 }
 
 std::shared_ptr<Thread> Scheduler::preempt(std::shared_ptr<Thread> thread) { //preempt the current thread on the CPU
+	thread->numBursts++;
 	return cpu->setWorkingThread(thread);
 }
 
@@ -122,8 +123,15 @@ std::shared_ptr<Thread> Scheduler::getCurrentWorkingThread() {
 	return cpu->getWorkingThread();
 }
 
-std::shared_ptr<FitnessContext> Scheduler::getFitnessContext() {
-	return std::shared_ptr<FitnessContext>();//TODO: do this next
+std::shared_ptr<FitnessContext> Scheduler::getFitnessContext(std::shared_ptr<Thread> thread) {
+	return std::make_shared<FitnessContext>(thread->numBursts,
+											cpu->expectedBurstLeft(),
+											readyList->size(),
+											blockedList->size(),
+											finishedList->size(),
+											thread->timeSinceLastPremption,
+											thread->timeSinceLastSwitched
+		);
 }
 
 size_t Scheduler::getLengthOfCurrentBurst() {

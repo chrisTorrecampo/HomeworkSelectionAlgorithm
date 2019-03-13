@@ -8,6 +8,11 @@ public:
 	size_t lastReadyTime;
 	bool needsIO; //TODO: impliment IO
 
+	//stuff for machine learning
+	size_t numBursts;
+	size_t timeSinceLastPremption;
+	size_t timeSinceLastSwitched;
+
 	Thread() {
 		waitingTime = 0;
 		lastReadyTime = 0;

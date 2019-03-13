@@ -31,7 +31,7 @@ void GeneticOrganism_Strategy::schedule(){
 		double threadFitness = fit->threadFitness(*it,
 												(*it)->waitingTime,
 												((double)pos)/context->ReadyList->size(),
-												context->scheduler->getFitnessContext()
+												context->scheduler->getFitnessContext((*it))
 		);
 		if (threadFitness > greatestFitness) {
 			greatestFitness = threadFitness;
@@ -60,7 +60,7 @@ void GeneticOrganism_Strategy::checkFitness(){
 		double threadFitness = fit->threadFitness(*it,
 			(*it)->waitingTime,
 			((double)pos) / context->ReadyList->size(),
-			context->scheduler->getFitnessContext()
+			context->scheduler->getFitnessContext((*it))
 		);
 		if (threadFitness > greatestFitness) {
 			greatestFitness = threadFitness;
@@ -71,7 +71,7 @@ void GeneticOrganism_Strategy::checkFitness(){
 	double cpuFitness = fit->cpuFitness(context->scheduler->getCurrentWorkingThread(),
 										context->scheduler->getLengthOfCurrentBurst(),
 										context->scheduler->getContextSwitchTime(),
-										context->scheduler->getFitnessContext()
+										context->scheduler->getFitnessContext(context->scheduler->getCurrentWorkingThread())
 	);
 	if (greatestFitness > cpuFitness) {
 		prempt(mostFit);

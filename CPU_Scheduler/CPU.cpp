@@ -34,10 +34,12 @@ size_t CPU::getLengthOfCurrentBurst(){
 
 std::shared_ptr<Thread> CPU::setWorkingThread(std::shared_ptr<Thread> newThread) {
 	if (currThread == NULL) {//if this is the first thread
-		currThread = newThread;
-		newThread->addWaitTime(currTime);
-		burstTimeLeft = currThread->burstTime.back();
-		currBurstStart = currTime;
+		if (newThread != NULL) {
+			currThread = newThread;
+			newThread->addWaitTime(currTime);
+			burstTimeLeft = currThread->burstTime.back();
+			currBurstStart = currTime;
+		}
 		return NULL;
 	}
 
@@ -50,8 +52,10 @@ std::shared_ptr<Thread> CPU::setWorkingThread(std::shared_ptr<Thread> newThread)
 
 	if (burstTimeLeft <= 0) {//TODO: this will become more important if/when we actually use a proper time datatype
 		currThread->burstTime.pop_back();
+		currThread->timeSinceLastSwitched;
 	} else {
 		currThread->burstTime.at(currThread->burstTime.size() - 1) = burstTimeLeft;
+		currThread->timeSinceLastPremption = currTime;
 	}
 	
 	std::shared_ptr<Thread> oldThread = currThread;

@@ -17,6 +17,10 @@ public:
 
 	size_t getClockTime() { return currTime; }
 
+	size_t expectedBurstLeft() {
+		return burstTimeLeft; //TODO: make this more real life by taking the average of past bursts or something
+	}
+
 private:
 	std::shared_ptr<Thread> currThread = NULL;
 	size_t burstTimeLeft = 0;

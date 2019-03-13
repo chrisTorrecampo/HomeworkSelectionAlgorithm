@@ -40,7 +40,7 @@ public:
 	std::shared_ptr<ScheduleStrategy> strat;
 
 	std::shared_ptr<Thread> getCurrentWorkingThread();
-	std::shared_ptr<FitnessContext> getFitnessContext();
+	std::shared_ptr<FitnessContext> getFitnessContext(std::shared_ptr<Thread> thread);
 	size_t getLengthOfCurrentBurst();
 
 	size_t getContextSwitchTime() { return contextSwitchTime; }

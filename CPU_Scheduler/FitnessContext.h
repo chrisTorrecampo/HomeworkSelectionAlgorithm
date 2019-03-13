@@ -2,8 +2,7 @@
 
 class FitnessContext{
 public:
-	FitnessContext(bool pr, size_t nb, size_t ebt, size_t rls, size_t bls, size_t fls, size_t tslp, size_t tsls) {
-		premptedRecently = pr;
+	FitnessContext(size_t nb, size_t ebt, size_t rls, size_t bls, size_t fls, size_t tslp, size_t tsls) {
 		numBursts = nb;
 		expectedBurstTime = ebt;
 
@@ -15,7 +14,6 @@ public:
 		timeSinceLastSwitched = tsls;
 	}
 
-	bool premptedRecently;
 	size_t numBursts;
 	size_t expectedBurstTime;
 	double BL_RL_S;
