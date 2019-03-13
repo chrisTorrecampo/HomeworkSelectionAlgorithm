@@ -79,6 +79,16 @@ void GeneticOrganism_Strategy::checkFitness(){
 	//else keep current thread on cpu
 }
 
-void GeneticOrganism_Strategy::prempt(std::shared_ptr<Thread>){
+void GeneticOrganism_Strategy::prempt(std::shared_ptr<Thread> threadToSchedule){
 
+	std::shared_ptr<Thread> lastThread = context->scheduler->preempt(threadToSchedule); //move scheduled thread to CPU and save the last thread
+	if (lastThread != NULL) {
+		if (lastThread->burstTime.size() > 0) {
+			context->scheduler->addNewThread(lastThread);
+			return;
+		}
+	}
+
+	context->ReadyList->remove(threadToSchedule);
+	context->scheduler->finishThread(lastThread);
 }
