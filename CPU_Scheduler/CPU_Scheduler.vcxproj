@@ -122,9 +122,11 @@
     <ClInclude Include="FIFO_Strategy.h" />
     <ClInclude Include="FitnessContext.h" />
     <ClInclude Include="FitnessStrategy.h" />
+    <ClInclude Include="GA_Fitness.h" />
     <ClInclude Include="GeneticOrganism_Strategy.h" />
     <ClInclude Include="Perceptron.h" />
     <ClInclude Include="Perceptron_FitnessStrategy.h" />
+    <ClInclude Include="Population.h" />
     <ClInclude Include="RoundRobin_Strategy.h" />
     <ClInclude Include="Scheduler.h" />
     <ClInclude Include="ScheduleStrategy.h" />
@@ -133,9 +135,11 @@
   <ItemGroup>
     <ClCompile Include="CPU.cpp" />
     <ClCompile Include="FIFO_Strategy.cpp" />
+    <ClCompile Include="GA_Fitness.cpp" />
     <ClCompile Include="GeneticOrganism_Strategy.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Perceptron_FitnessStrategy.cpp" />
+    <ClCompile Include="Population.cpp" />
     <ClCompile Include="RoundRobin_Strategy.cpp" />
     <ClCompile Include="Scheduler.cpp" />
   </ItemGroup>

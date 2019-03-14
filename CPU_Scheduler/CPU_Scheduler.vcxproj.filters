@@ -51,6 +51,12 @@
     <ClInclude Include="Perceptron_FitnessStrategy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Population.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GA_Fitness.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CPU.cpp">
@@ -72,6 +78,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Perceptron_FitnessStrategy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Population.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GA_Fitness.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

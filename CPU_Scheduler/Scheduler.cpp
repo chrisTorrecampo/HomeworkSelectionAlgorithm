@@ -163,3 +163,10 @@ double Scheduler::getMeanSquaredWaitTime() {
 
 	return meanWaitTime / finishedList->size();
 }
+
+void Scheduler::reset(){
+	readyList->clear();
+	blockedList->clear();
+	finishedList->clear();
+	cpu->clear();
+}

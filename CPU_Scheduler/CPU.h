@@ -21,6 +21,8 @@ public:
 		return burstTimeLeft; //TODO: make this more real life by taking the average of past bursts or something
 	}
 
+	void clear();
+
 private:
 	std::shared_ptr<Thread> currThread = NULL;
 	size_t burstTimeLeft = 0;

@@ -48,6 +48,8 @@ public:
 	double getMeanWaitTime();
 	double getMeanSquaredWaitTime();
 
+	void reset();
+
 private:
 	std::shared_ptr<CPU> cpu;
 	std::shared_ptr<std::list<std::shared_ptr<Thread>>> finishedList = std::make_shared<std::list<std::shared_ptr<Thread>>>();;

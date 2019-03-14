@@ -79,3 +79,10 @@ std::shared_ptr<Thread> CPU::setWorkingThread(std::shared_ptr<Thread> newThread)
 std::shared_ptr<Thread> CPU::getWorkingThread() {
 	return currThread;
 }
+
+void CPU::clear() {
+	currTime = 0;
+	currBurstStart = 0;
+	burstTimeLeft = 0;
+	currThread = NULL;
+}
