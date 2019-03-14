@@ -13,7 +13,7 @@ public:
 			return -1;
 		}
 		double sum = 0;
-		for (int i = 0; i < weights.size(); i++) {
+		for (size_t i = 0; i < weights.size(); i++) {
 			sum += weights[i] * input[i];
 		}
 

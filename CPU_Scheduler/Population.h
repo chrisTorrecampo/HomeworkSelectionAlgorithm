@@ -1,16 +1,18 @@
 #pragma once
 #include <vector>
-
-#include "FitnessStrategy.h"
 #include <stdlib.h>
 #include <time.h>
+
+#include "FitnessStrategy.h"
+#include "GA_Fitness.h"
+
 
 class Population
 {
 public:
 	Population(size_t ng);                                       //empty
 	Population(size_t ng, size_t popsToInitialize);              //initialize x random organisms
-	Population(size_t ng, std::vector<std::vector<double>> p);   //initialize from vector
+	Population(size_t ng, std::vector<std::shared_ptr<Gene>> p);   //initialize from vector
 	Population(size_t ng, FILE file);                            //initialize from file
 	~Population();
 
@@ -21,8 +23,9 @@ public:
 	void runGenerations(size_t gens);
 
 private:
-	std::vector<std::vector<double>> pop = {};
-	std::vector<double> fitness;
+	GA_Fitness gaFit = GA_Fitness();
+
+	std::vector<std::shared_ptr<Gene>> pop = {};
 	size_t numGenes;
 
 	void getSeed();
@@ -33,8 +36,10 @@ private:
 	void mutation(double percent);
 	void generation();
 
-	std::vector<double> breed(std::vector<double> a, std::vector<double> b);
+	std::shared_ptr<Gene> breed(std::vector<double> a, std::vector<double> b);
 	void cross(std::vector<double> &a, std::vector<double> &b);
-	void mutate(std::vector<double> &a);
+	void mutate(std::vector<double> a);
+
+	bool fitSort(const std::shared_ptr<Gene> &a, const std::shared_ptr<Gene> &b);
 };
 

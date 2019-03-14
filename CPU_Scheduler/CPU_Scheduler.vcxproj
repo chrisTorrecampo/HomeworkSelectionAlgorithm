@@ -123,6 +123,7 @@
     <ClInclude Include="FitnessContext.h" />
     <ClInclude Include="FitnessStrategy.h" />
     <ClInclude Include="GA_Fitness.h" />
+    <ClInclude Include="Gene.h" />
     <ClInclude Include="GeneticOrganism_Strategy.h" />
     <ClInclude Include="Perceptron.h" />
     <ClInclude Include="Perceptron_FitnessStrategy.h" />

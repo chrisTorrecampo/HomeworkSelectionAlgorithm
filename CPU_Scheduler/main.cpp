@@ -37,7 +37,7 @@ int main(int argc, char *argv[]){
 	std::shared_ptr<Perceptron_FitnessStrategy> pFit = std::make_shared<Perceptron_FitnessStrategy>();
 	s->setStrat(std::make_shared<GeneticOrganism_Strategy>(pFit, 1));
 
-	for (int i = 0; i < dataSet.size(); i++) {
+	for (size_t i = 0; i < dataSet.size(); i++) {
 		s->addNewThread(std::vector<size_t>{dataSet[i]});
 	}
 
