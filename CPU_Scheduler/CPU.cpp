@@ -37,6 +37,10 @@ std::shared_ptr<Thread> CPU::setWorkingThread(std::shared_ptr<Thread> newThread)
 		if (newThread != NULL) {
 			currThread = newThread;
 			newThread->addWaitTime(currTime);
+			if (currThread->burstTime.size() == 0) {
+				burstTimeLeft = 0; //this shoulden't ever get here but if it ever does the best that CPU can do is just ask for another thread next time
+				return NULL;
+			}
 			burstTimeLeft = currThread->burstTime.back();
 			currBurstStart = currTime;
 		}
@@ -61,8 +65,12 @@ std::shared_ptr<Thread> CPU::setWorkingThread(std::shared_ptr<Thread> newThread)
 	std::shared_ptr<Thread> oldThread = currThread;
 	currThread = newThread;
 	newThread->addWaitTime(currTime);
+	if (currThread->burstTime.size() == 0) {
+		burstTimeLeft = 0; //this shoulden't ever get here but if it ever does the best that CPU can do is just ask for another thread next time
+		return oldThread;
+	}
+
 	burstTimeLeft = currThread->burstTime.back();
-	
 	currBurstStart = currTime;
 
 	return oldThread;
