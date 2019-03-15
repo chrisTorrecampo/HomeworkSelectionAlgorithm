@@ -41,8 +41,14 @@ private:
 
 	std::shared_ptr<Gene> breed(std::vector<double> a, std::vector<double> b);
 	void cross(std::vector<double> &a, std::vector<double> &b);
-	void mutate(std::vector<double> a);
+	void mutate(std::vector<double> &a);
 
 	//bool fitSort(const std::shared_ptr<Gene> &a, const std::shared_ptr<Gene> &b);
+
+	double dRand(double min, double max)
+	{
+		double f = (double)rand() / RAND_MAX;
+		return min + f * (max - min);
+	}
 };
 

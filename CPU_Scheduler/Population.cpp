@@ -36,7 +36,7 @@ void Population::addRandomPops(size_t numPops) {
 	for (size_t i = 0; i < numPops; i++) {
 		std::vector<double> genes = {};
 		for (size_t j = 0; j < numGenes; j++) {
-			genes.push_back(rand());
+			genes.push_back(dRand(0,10));
 		}
 		addPop(genes);
 	}
@@ -86,6 +86,12 @@ void Population::evolvePop() {
 	//sort by fitness
 	std::sort(pop.begin(), pop.end(), [](const std::shared_ptr<Gene> &a, const std::shared_ptr<Gene> &b)->bool {return a->fitness < b->fitness; });
 
+	std::cout << "Top Genes: ";
+	for (int i = 0; i < pop[0]->genes.size(); i++) {
+		std::cout << pop[0]->genes[i] << " ";
+	}
+	std::cout << "\n";
+
 	//kill bottom percent 
 	kill(0.5);
 
@@ -102,7 +108,7 @@ void Population::evolvePop() {
 	}
 	
 	//mutate
-	mutation(0.2);
+	mutation(0.4);
 }
 
 void Population::kill(double percent) {
@@ -157,9 +163,12 @@ void Population::cross(std::vector<double>& a, std::vector<double>& b) {
 	}
 }
 
-void Population::mutate(std::vector<double> a) {
+void Population::mutate(std::vector<double> &a) {
+	const double fMin = 0;
+	const double fMax = 10;
+
 	size_t mutationMutex = rand() % a.size();
-	a[mutationMutex] = rand();
+	a[mutationMutex] = dRand(0,10);
 }
 
 double Population::getTopFitness() {
