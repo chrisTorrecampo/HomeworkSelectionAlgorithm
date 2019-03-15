@@ -1,28 +1,32 @@
 #include <algorithm>
+#include <iostream>
 
 #include "Population.h"
 
-Population::Population(size_t ng) {
+Population::Population(size_t ng, std::vector<size_t> ds) {
 	numGenes = ng;
 	getSeed();
+	gaFit = GA_Fitness(ds);
 }
 
-Population::Population(size_t ng, size_t popsToInitialize) {
+Population::Population(size_t ng, std::vector<size_t> ds, size_t popsToInitialize) {
 	numGenes = ng;
 	getSeed();
 	addRandomPops(popsToInitialize);
+	gaFit = GA_Fitness(ds);
 }
 
-Population::Population(size_t ng, std::vector<std::shared_ptr<Gene>> g) {
+Population::Population(size_t ng, std::vector<size_t> ds, std::vector<std::shared_ptr<Gene>> g) {
 	numGenes = ng;
 	getSeed();
 	pop = g;
+	gaFit = GA_Fitness(ds);
 }
 
 Population::Population(size_t ng, FILE file) {
 	numGenes = ng;
 	getSeed();
-	//TODO: import from file
+	//TODO: import ds from file
 }
 
 Population::~Population() {
@@ -63,6 +67,7 @@ void Population::outputFile(FILE file) {
 
 void Population::runGenerations(size_t gens) {
 	for (size_t i = 0; i < gens; i++) {
+		std::cout << "Generation: " << i << "\n";
 		generation();
 	}
 }
@@ -79,18 +84,21 @@ void Population::testPop() {
 
 void Population::evolvePop() {
 	//sort by fitness
-	std::sort(pop.begin(), pop.end(), &Population::fitSort);
+	std::sort(pop.begin(), pop.end(), [](const std::shared_ptr<Gene> &a, const std::shared_ptr<Gene> &b)->bool {return a->fitness < b->fitness; });
 
 	//kill bottom percent 
-	kill(0.1);
+	kill(0.5);
 
 	//scramble //TODO
 	std::random_shuffle(pop.begin(), pop.end());
 
 	//breed good ones
 	size_t currMax = pop.size();
+	if (currMax % 2 != 0) { //last breed to maintain the same number
+		pop.push_back(breed(pop[1]->genes, pop[pop.size()-1]->genes));
+	}
 	for (size_t i = 0; i < currMax - 1; i += 2) {
-		pop.push_back(breed(pop[1]->genes, pop[i+1]->genes));
+		pop.push_back(breed(pop[i]->genes, pop[i+1]->genes));
 	}
 	
 	//mutate
@@ -114,6 +122,8 @@ void Population::mutation(double percent) {
 
 void Population::generation() {
 	testPop();
+	std::cout << "Top Fitness: " << getTopFitness() << "\n";
+	std::cout << "Average Fitness: " << getAverageFitness() << "\n";
 	evolvePop();
 	//TODO: print? send to file?
 }
@@ -152,6 +162,33 @@ void Population::mutate(std::vector<double> a) {
 	a[mutationMutex] = rand();
 }
 
+double Population::getTopFitness() {
+	if (pop.size() == 0) {
+		return 0;
+	}
+	double maxFitness = 0;
+	for (std::shared_ptr<Gene> g : pop) {
+		if (g->fitness > maxFitness){
+			maxFitness = g->fitness;
+		}
+	}
+	return maxFitness;
+}
+
+double Population::getAverageFitness() {
+	if (pop.size() == 0) {
+		return 0;
+	}
+
+	double avgFitness = 0;
+	for (std::shared_ptr<Gene> g : pop) {
+		avgFitness += g->fitness;
+	}
+	return avgFitness / pop.size();
+}
+
+/*
 bool Population::fitSort(const std::shared_ptr<Gene> &a, const std::shared_ptr<Gene> &b) {//TODO: more pointer problems :/
 	return a->fitness < b->fitness;
 }
+*/

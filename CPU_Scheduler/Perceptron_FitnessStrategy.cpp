@@ -32,6 +32,7 @@ double Perceptron_FitnessStrategy::threadFitness(std::shared_ptr<Thread>, size_t
 }
 
 double Perceptron_FitnessStrategy::cpuFitness(std::shared_ptr<Thread>, size_t currentBT, size_t contextSwitchTime, std::shared_ptr<FitnessContext> fc) {
+	/*
 	std::cout << "cpu fitness: " << fitnessPerceptron->getValue(std::vector<double>{0.0,
 		0.0,
 		(double)currentBT,
@@ -44,6 +45,7 @@ double Perceptron_FitnessStrategy::cpuFitness(std::shared_ptr<Thread>, size_t cu
 		(double)fc->timeSinceLastPremption,
 		(double)fc->timeSinceLastSwitched
 	}) << "\n";
+	*/
 	return fitnessPerceptron->getValue(std::vector<double>{0.0,
 															0.0,
 															(double) currentBT,

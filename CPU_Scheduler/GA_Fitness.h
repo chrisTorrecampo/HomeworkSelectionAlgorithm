@@ -8,7 +8,10 @@
 
 class GA_Fitness{
 public:
-	GA_Fitness();
+	GA_Fitness() {};//never use this
+	GA_Fitness(std::vector<size_t> ds);
+	GA_Fitness(const GA_Fitness &ga);
+	GA_Fitness& operator=(const GA_Fitness &ga);
 
 	double fitness(std::shared_ptr<Gene> in);
 	void inputData(std::vector<size_t> dataSet);
@@ -16,6 +19,6 @@ public:
 private:
 	std::shared_ptr<Scheduler> schedule; 
 	std::shared_ptr<Perceptron_FitnessStrategy> pFit;
-	const size_t timeQuantum = 1;
+	size_t timeQuantum = 1;
 	std::vector<size_t> dataSet;
 };

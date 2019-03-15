@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <iostream>
 
 #include "Scheduler.h"
 #include "FIFO_Strategy.h"
@@ -141,6 +142,7 @@ size_t Scheduler::getLengthOfCurrentBurst() {
 double Scheduler::getMeanWaitTime() {
 	if (finishedList->size() == 0) {
 		//TODO: something went wrong. Throw something here
+		std::cout << "ERROR: / 0\n";
 	}
 	double meanWaitTime = 0;
 	std::list<std::shared_ptr<Thread>>::iterator it;

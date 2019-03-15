@@ -7,7 +7,7 @@
 #include "FIFO_Strategy.h"
 #include "RoundRobin_Strategy.h"
 #include "Perceptron_FitnessStrategy.h"
-#include "GeneticOrganism_Strategy.h"
+#include "Population.h"
 
 int main(int argc, char *argv[]){
 	/*
@@ -29,10 +29,11 @@ int main(int argc, char *argv[]){
 
 	std::vector<size_t> dataSet;
 
-	for (int i = 0; i < 100; i++) {
-		dataSet.push_back((size_t)(rand() % 100 + 1));
+	for (int i = 0; i < 5; i++) {
+		dataSet.push_back((size_t)(rand() % 5 + 1));
 	}
 
+	/*
 	std::shared_ptr<Scheduler> s = std::make_shared<Scheduler>();
 	std::shared_ptr<Perceptron_FitnessStrategy> pFit = std::make_shared<Perceptron_FitnessStrategy>();
 	s->setStrat(std::make_shared<GeneticOrganism_Strategy>(pFit, 1));
@@ -49,6 +50,13 @@ int main(int argc, char *argv[]){
 
 	std::cout << s->getMeanWaitTime() << "\n";
 	std::cout << s->getMeanSquaredWaitTime() << "\n";
+
+	*/
+
+	Population p = Population(11, dataSet);
+
+	p.addRandomPops(10, 0, 10);
+	p.runGenerations(10);
 
 	int x;
 	std::cin >> x;

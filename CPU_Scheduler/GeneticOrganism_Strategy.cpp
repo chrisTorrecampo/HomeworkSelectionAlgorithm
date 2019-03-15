@@ -90,11 +90,10 @@ void GeneticOrganism_Strategy::prempt(std::shared_ptr<Thread> threadToSchedule){
 	if (lastThread != NULL) {
 		if (lastThread->burstTime.size() > 0) {
 			context->scheduler->addNewThread(lastThread);
+			context->ReadyList->remove(threadToSchedule);
 			return;
 		}
-		else {
-			context->scheduler->finishThread(lastThread);
-		}
+		context->scheduler->finishThread(lastThread);
 	}
 
 	context->ReadyList->remove(threadToSchedule);

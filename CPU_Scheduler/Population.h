@@ -10,9 +10,9 @@
 class Population
 {
 public:
-	Population(size_t ng);                                       //empty
-	Population(size_t ng, size_t popsToInitialize);              //initialize x random organisms
-	Population(size_t ng, std::vector<std::shared_ptr<Gene>> p);   //initialize from vector
+	Population(size_t ng, std::vector<size_t> ds);                                       //empty
+	Population(size_t ng, std::vector<size_t> ds, size_t popsToInitialize);              //initialize x random organisms
+	Population(size_t ng, std::vector<size_t> ds, std::vector<std::shared_ptr<Gene>> p);   //initialize from vector
 	Population(size_t ng, FILE file);                            //initialize from file
 	~Population();
 
@@ -22,8 +22,11 @@ public:
 	void outputFile(FILE file);
 	void runGenerations(size_t gens);
 
+	double getTopFitness();
+	double getAverageFitness();
+
 private:
-	GA_Fitness gaFit = GA_Fitness();
+	GA_Fitness gaFit;
 
 	std::vector<std::shared_ptr<Gene>> pop = {};
 	size_t numGenes;
@@ -40,6 +43,6 @@ private:
 	void cross(std::vector<double> &a, std::vector<double> &b);
 	void mutate(std::vector<double> a);
 
-	bool fitSort(const std::shared_ptr<Gene> &a, const std::shared_ptr<Gene> &b);
+	//bool fitSort(const std::shared_ptr<Gene> &a, const std::shared_ptr<Gene> &b);
 };
 
