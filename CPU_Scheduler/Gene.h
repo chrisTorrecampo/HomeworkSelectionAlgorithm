@@ -13,10 +13,11 @@ public:
 		genes = g.genes;
 	}
 
-	Gene& operator=(const Gene &g) {
-		fitness = g.fitness;
-		genes = g.genes;
-	}
+    Gene& operator=(const Gene &g) {
+        fitness = g.fitness;
+        genes = g.genes;
+        return *this;
+    }
 
 	double fitness = 0;
 	std::vector<double> genes;

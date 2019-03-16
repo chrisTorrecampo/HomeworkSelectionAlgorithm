@@ -6,6 +6,8 @@ class Thread
 public:
 	size_t waitingTime;
 	size_t lastReadyTime;
+    size_t finishTime;
+    size_t arriveTime;
 	bool needsIO; //TODO: impliment IO
 
 	//stuff for machine learning
@@ -25,6 +27,8 @@ public:
 		lastReadyTime = entryTime;
 		burstTime = burstT;
 		needsIO = false;
+        finishTime = 0;
+        arriveTime = entryTime;
 	}
 
 	~Thread() {

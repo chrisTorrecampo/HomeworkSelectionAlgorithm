@@ -2,6 +2,7 @@
 #include <vector>
 #include <stdlib.h>
 #include <time.h>
+//#include <fstream>
 
 #include "FitnessStrategy.h"
 #include "GA_Fitness.h"

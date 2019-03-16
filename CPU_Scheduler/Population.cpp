@@ -62,7 +62,13 @@ void Population::addPop(std::vector<double> genes) {
 }
 
 void Population::outputFile(FILE file) {
-	//TODO: do this
+//    weights
+//    std::fstream output;
+//    output.open("genes_weights",std::ios::out);
+//    for(int i = 0; i < pop.size();i++) {
+//        output<<pop[i]<<"\n";
+//    }
+//    output.close();
 }
 
 void Population::runGenerations(size_t gens) {
@@ -130,6 +136,7 @@ void Population::generation() {
 	testPop();
 	std::cout << "Top Fitness: " << getTopFitness() << "\n";
 	std::cout << "Average Fitness: " << getAverageFitness() << "\n";
+    std::cout << "Average waiting time: " << 1/getAverageFitness() << "\n";
 	evolvePop();
 	//TODO: print? send to file?
 }

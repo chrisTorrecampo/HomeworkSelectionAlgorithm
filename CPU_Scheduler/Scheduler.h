@@ -49,6 +49,9 @@ public:
 	double getMeanSquaredWaitTime();
 
 	void reset();
+    size_t getCPUtime() {
+        return cpu->getClockTime();
+    }
 
 private:
 	std::shared_ptr<CPU> cpu;

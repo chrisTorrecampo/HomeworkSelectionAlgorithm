@@ -1,6 +1,6 @@
 #include <algorithm>
 #include <iostream>
-
+#include <tgmath.h>
 #include "Scheduler.h"
 #include "FIFO_Strategy.h"
 
@@ -48,7 +48,6 @@ void Scheduler::run() {
 		strat->schedule();
 		return;
 	}
-
 	//otherwise run the strategy to see if we preempt
 	strat->run();
 }
