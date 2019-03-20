@@ -67,9 +67,12 @@ int main(int argc, char *argv[]){
     p.addRandomPops(100, 0, 10);
     p.runGenerations(100);
     
+    std::shared_ptr<std::list<std::shared_ptr<Thread>>> beforeReady =  std::make_shared<std::list<std::shared_ptr<Thread>>>();;
+
+
     // read test data
     int ThreadsCounter = 0;
-    std::string path = "tests/t50/t50.txt"; // default
+    std::string path = "tests/No_IO/threads_increasing/test_threads_v9.txt"; // default
     std::ifstream fin;
     std::vector<size_t> burstTimes = {};
     fin.open(path);
@@ -110,7 +113,7 @@ int main(int argc, char *argv[]){
             }
             
             std::shared_ptr<Thread> newThread(new Thread(arrive, burstTimes));
-            dataSet.push_back(burst);
+            beforeReady->push_back(newThread);
             ThreadsCounter++;
         }
         
@@ -122,15 +125,21 @@ int main(int argc, char *argv[]){
     std::shared_ptr<Perceptron_FitnessStrategy> fit = std::make_shared<Perceptron_FitnessStrategy>();
     std::shared_ptr<Scheduler> s = std::make_shared<Scheduler>();
     s->setStrat(std::make_shared<GeneticOrganism_Strategy>(fit, 500));
-    for (int i = 0; i < dataSet.size(); i++) {
-        s->addNewThread(std::vector<size_t>{dataSet[i]});
-    }
-    
-    while (!s->isFinished()) {
+
+    while (!s->isFinished()  or ThreadsCounter> 0) {
+        // check arriveTime
+        if(beforeReady->front()!=NULL) {
+            while( ThreadsCounter> 0 &&s->getCPUtime() >= beforeReady->front()->arriveTime) {
+                s->addNewThread(beforeReady->front());
+                beforeReady->pop_front();
+                ThreadsCounter--;
+            }
+        }
+        
         s->run();
     }
     
-    std::cout << "Round Robin Fitness: " << 1 / s->getMeanWaitTime() << "\n";
+    std::cout << "test Fitness: " << 1 / s->getMeanWaitTime() << "\n";
     std::cout << "mean waiting time: " << s->getMeanWaitTime() << "\n";
 
     //    int x;
