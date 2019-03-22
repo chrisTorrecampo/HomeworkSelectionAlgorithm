@@ -44,12 +44,14 @@ Scheduler & Scheduler::operator=(const Scheduler & s) {
 }
 
 void Scheduler::run() {
-	if (!cpu->run()) { //run cpu; if thread has completed: 
+	if (!cpu->run()) { //run cpu; if thread has completed:
 		strat->schedule();
 		return;
 	}
 	//otherwise run the strategy to see if we preempt
 	strat->run();
+    printf("[Scheduler] cpu arrivetime %zu, cpu time: %zu\n",cpu->getWorkingThread()->arriveTime,cpu->getClockTime());
+
 }
 
 void Scheduler::addNewThread(std::shared_ptr<Thread> thread) {

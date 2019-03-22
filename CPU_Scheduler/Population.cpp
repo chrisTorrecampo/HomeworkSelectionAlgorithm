@@ -175,7 +175,7 @@ void Population::mutate(std::vector<double> &a) {
 	const double fMax = 10;
 
 	size_t mutationMutex = rand() % a.size();
-	a[mutationMutex] = dRand(0,10);
+	a[mutationMutex] = dRand(fMin,fMax);
 }
 
 double Population::getTopFitness() {

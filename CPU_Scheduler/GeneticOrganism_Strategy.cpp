@@ -16,6 +16,7 @@ GeneticOrganism_Strategy::~GeneticOrganism_Strategy(){
 void GeneticOrganism_Strategy::run(){
 	time_since_last_fitness--;
 	if (time_since_last_fitness <= 0) {
+        printf("test\n");
 		time_since_last_fitness = fitTime;
 		checkFitness();
 	}
@@ -38,8 +39,9 @@ void GeneticOrganism_Strategy::schedule(){
 			mostFit = *it;
 		}
 	}
-
-	prempt(mostFit);
+    //    printf("[GeneticOrganism_Strategy] most fit arriveTime:%zu\n", mostFit->arriveTime);
+    //    printf("[GeneticOrganism_Strategy] most fit burstTime:%zu\n", mostFit->burstTime[0]);
+    prempt(mostFit);
 }
 
 void GeneticOrganism_Strategy::addThread(){

@@ -26,7 +26,12 @@ int main(int argc, char *argv[]){
 	std::cout << s->numFinished() << "\n";
 	}
 	*/
-	
+    std::string path = "tests/t50/t50.txt"; // default
+
+
+	if (argc >= 2){
+        path = argv[1];
+    }
 	srand(time(NULL));
 
 	std::vector<size_t> dataSet;
@@ -72,7 +77,6 @@ int main(int argc, char *argv[]){
 
     // read test data
     int ThreadsCounter = 0;
-    std::string path = "tests/No_IO/threads_increasing/test_threads_v9.txt"; // default
     std::ifstream fin;
     std::vector<size_t> burstTimes = {};
     fin.open(path);
@@ -107,12 +111,9 @@ int main(int argc, char *argv[]){
                 }
                 lineCount++;
             }
-            size_t totalBurstTime = 0;
-            for( int i = 0; i < burstTime.size();i++) {
-                totalBurstTime = totalBurstTime + burstTime[i];
-            }
             
             std::shared_ptr<Thread> newThread(new Thread(arrive, burstTimes));
+            printf("input burst size: %zu \n", burstTimes.size());
             beforeReady->push_back(newThread);
             ThreadsCounter++;
         }
@@ -124,7 +125,7 @@ int main(int argc, char *argv[]){
     //    s->setStrat(std::make_shared<RoundRobin_Strategy>(4));
     std::shared_ptr<Perceptron_FitnessStrategy> fit = std::make_shared<Perceptron_FitnessStrategy>();
     std::shared_ptr<Scheduler> s = std::make_shared<Scheduler>();
-    s->setStrat(std::make_shared<GeneticOrganism_Strategy>(fit, 500));
+    s->setStrat(std::make_shared<GeneticOrganism_Strategy>(fit, 50));
 
     while (!s->isFinished()  or ThreadsCounter> 0) {
         // check arriveTime
