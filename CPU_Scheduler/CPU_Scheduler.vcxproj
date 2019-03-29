@@ -125,6 +125,7 @@
     <ClInclude Include="GA_Fitness.h" />
     <ClInclude Include="Gene.h" />
     <ClInclude Include="GeneticOrganism_Strategy.h" />
+    <ClInclude Include="Homework.h" />
     <ClInclude Include="Perceptron.h" />
     <ClInclude Include="Perceptron_FitnessStrategy.h" />
     <ClInclude Include="Population.h" />
