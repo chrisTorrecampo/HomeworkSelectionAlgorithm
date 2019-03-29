@@ -9,6 +9,17 @@
 #include "Context.h"          //predefines Scheduler
 #include "FitnessContext.h"
 
+class HW {
+public:
+
+};
+
+class Course {
+public:
+	double getGPA() { return 0; };
+	void addHW(std::shared_ptr<HW> h) {};//adds HW to list
+};
+
 class Scheduler : public std::enable_shared_from_this<Scheduler>
 {
 public:
@@ -21,12 +32,10 @@ public:
 
 	void run();
 
-	void addNewThread(std::shared_ptr<Thread> thread);
-	void addNewThread(std::vector<size_t> burstT);
-	void readyThread(std::shared_ptr<Thread> thread);//move a specific thread from Blocked List to Ready List
-	void blockThread(std::shared_ptr<Thread> thread);//move a specific thread from Ready List to Blocked List
-	std::shared_ptr<Thread> preempt(std::shared_ptr<Thread> thread);//preempt the current thread on the CPU
-	void finishThread(std::shared_ptr<Thread> thread);//move a specific thread from Ready List to Finished List
+	void addNewCourse(std::shared_ptr<Course> c);
+	void addNewHW(int index, std::shared_ptr<HW> hw);
+	//std::shared_ptr<Thread> preempt(std::shared_ptr<Thread> thread);//preempt the current thread on the CPU //if we do partial HW this may be useful
+	void finishHW(std::shared_ptr<HW> hw);//move a specific hw from to Finished List
 
 	bool isFinished();
 	size_t numFinished();
@@ -41,21 +50,14 @@ public:
 
 	std::shared_ptr<Thread> getCurrentWorkingThread();
 	std::shared_ptr<FitnessContext> getFitnessContext(std::shared_ptr<Thread> thread);
-	size_t getLengthOfCurrentBurst();
 
-	size_t getContextSwitchTime() { return contextSwitchTime; }
-
-	double getMeanWaitTime();
-	double getMeanSquaredWaitTime();
+	double getMeanGPA();
 
 	void reset();
 
 private:
-	std::shared_ptr<CPU> cpu;
-	std::shared_ptr<std::list<std::shared_ptr<Thread>>> finishedList = std::make_shared<std::list<std::shared_ptr<Thread>>>();;
-	std::shared_ptr<std::list<std::shared_ptr<Thread>>> readyList = std::make_shared<std::list<std::shared_ptr<Thread>>>();;
-	std::shared_ptr<std::list<std::shared_ptr<Thread>>> blockedList = std::make_shared<std::list<std::shared_ptr<Thread>>>();;
 
-	size_t contextSwitchTime;
+	std::vector<Course> courses;
+	size_t timeMax;
 };
 

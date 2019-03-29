@@ -5,15 +5,11 @@
 #include "FIFO_Strategy.h"
 
 Scheduler::Scheduler() { //needs Strategy assigned after the constructor because strategy needs a pointer the the scheduler
-	cpu = std::make_shared<CPU>();
 	//strat = std::make_shared<FIFO_Strategy>(getContext(this));
-	contextSwitchTime = 0;
 }
 
-Scheduler::Scheduler(std::shared_ptr<CPU> c, std::shared_ptr<ScheduleStrategy> s, size_t cst){
-	cpu = c;
+Scheduler::Scheduler(std::shared_ptr<ScheduleStrategy> s){
 	strat = s;
-	contextSwitchTime = cst;
 }
 
 Scheduler::~Scheduler() {
@@ -21,24 +17,18 @@ Scheduler::~Scheduler() {
 }
 
 Scheduler::Scheduler(const Scheduler & s) {
-	cpu = s.cpu;
 	strat = s.strat;
 	context = s.context;
 
-	readyList = s.readyList;
-	blockedList = s.blockedList;
-	finishedList = s.finishedList;
+	courses = s.courses;
 }
 
 Scheduler & Scheduler::operator=(const Scheduler & s) {
 	if (this != &s) {
-		cpu = s.cpu;
 		strat = s.strat;
 		context = s.context;
 
-		readyList = s.readyList;
-		blockedList = s.blockedList;
-		finishedList = s.finishedList;
+		courses = s.courses;
 	}
 	return *this;
 }
@@ -53,15 +43,12 @@ void Scheduler::run() {
 	strat->run();
 }
 
-void Scheduler::addNewThread(std::shared_ptr<Thread> thread) {
-	readyList->push_back(thread);
-	strat->addThread(); //TODO: should the strategy be allowed to push the added thread?
+void Scheduler::addNewCourse(Course c) {
+	courses.push_back(c);
 }
 
-void Scheduler::addNewThread(std::vector<size_t> burstT) {
-	std::shared_ptr<Thread> newThread(new Thread(cpu->getClockTime(), burstT));
-	readyList->push_back(newThread);
-	strat->addThread(); //TODO: should the strategy be allowed to push the added thread?
+void Scheduler::addNewHW(int index, std::shared_ptr<HW> hw) {
+	courses[index].addHW(hw);
 }
 
 void Scheduler::readyThread(std::shared_ptr<Thread> thread) { //move a specific thread from Blocked List to Ready List
@@ -135,11 +122,22 @@ std::shared_ptr<FitnessContext> Scheduler::getFitnessContext(std::shared_ptr<Thr
 		);
 }
 
-size_t Scheduler::getLengthOfCurrentBurst() {
-	return cpu->getLengthOfCurrentBurst();
+double Scheduler::getMeanGPA() {
+	if (courses.size() == 0) {
+		return 1;
+	}
+	double meanWaitTime = 0;
+	for (Course c : courses) {
+		meanWaitTime += c.getGPA();
+	}
+
+	return meanWaitTime / courses.size();
 }
 
-double Scheduler::getMeanWaitTime() {
+/*
+//TODO: this needs to go in 
+
+double Scheduler::getMeanGPA() {
 	if (finishedList->size() == 0) {
 		//TODO: something went wrong. Throw something here
 		std::cout << "ERROR: / 0\n";
@@ -153,22 +151,8 @@ double Scheduler::getMeanWaitTime() {
 	return meanWaitTime / finishedList->size();
 }
 
-double Scheduler::getMeanSquaredWaitTime() {
-	if (finishedList->size() == 0) {
-		//TODO: something went wrong. Throw something here
-	}
-	double meanWaitTime = 0;
-	std::list<std::shared_ptr<Thread>>::iterator it;
-	for (it = finishedList->begin(); it != finishedList->end(); ++it) {
-		meanWaitTime += pow((*it)->waitingTime, 2.0);
-	}
-
-	return meanWaitTime / finishedList->size();
-}
+*/
 
 void Scheduler::reset(){
-	readyList->clear();
-	blockedList->clear();
-	finishedList->clear();
-	cpu->clear();
+	courses.clear();
 }
