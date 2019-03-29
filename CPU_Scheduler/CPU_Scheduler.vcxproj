@@ -118,6 +118,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Context.h" />
+    <ClInclude Include="Course.h" />
     <ClInclude Include="CPU.h" />
     <ClInclude Include="FIFO_Strategy.h" />
     <ClInclude Include="FitnessContext.h" />
@@ -125,6 +126,7 @@
     <ClInclude Include="GA_Fitness.h" />
     <ClInclude Include="Gene.h" />
     <ClInclude Include="GeneticOrganism_Strategy.h" />
+    <ClInclude Include="Homework.h" />
     <ClInclude Include="Perceptron.h" />
     <ClInclude Include="Perceptron_FitnessStrategy.h" />
     <ClInclude Include="Population.h" />
