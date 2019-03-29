@@ -92,19 +92,29 @@ void Population::evolvePop() {
 	}
 	std::cout << "\n";
 
+	std::cout << pop.size() << "\n";
+
+	size_t breedMax = pop.size();
+	double killPercentage = 0.5;
 	//kill bottom percent 
-	kill(0.5);
+	kill(killPercentage);
+	size_t currMax = pop.size();
 
 	//scramble //TODO
 	std::random_shuffle(pop.begin(), pop.end());
 
 	//breed good ones
-	size_t currMax = pop.size();
-	if (currMax % 2 != 0) { //last breed to maintain the same number
-		pop.push_back(breed(pop[1]->genes, pop[pop.size()-1]->genes));
-	}
-	for (size_t i = 0; i < currMax - 1; i += 2) {
-		pop.push_back(breed(pop[i]->genes, pop[i+1]->genes));
+
+	while (pop.size() < breedMax) {
+
+		//get two different random indexes
+		int index1 = rand() % currMax;
+		int index2 = rand() % (currMax - 1);//one less range to account for the one index that has already been chosen 
+		if (index2 >= index1) {//if it is lower we are fine. If it is >= we need to account for the offset we did above. 
+			index2++;
+		}
+
+		pop.push_back(breed(pop[index1]->genes, pop[index2]->genes)); //TODO: this should check that both indexes are different
 	}
 	
 	//mutate
