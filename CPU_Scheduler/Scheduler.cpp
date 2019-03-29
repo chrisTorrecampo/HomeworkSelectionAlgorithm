@@ -41,7 +41,7 @@ void Scheduler::addNewCourse(Course c) {
 	courses.push_back(c);
 }
 
-void Scheduler::addNewHW(int index, std::shared_ptr<HW> hw) {
+void Scheduler::addNewHW(int index, std::shared_ptr<Homework> hw) {
 	courses[index].addHW(hw);
 }
 
@@ -65,7 +65,7 @@ std::shared_ptr<Context> Scheduler::getContext() {
 	return context;
 }
 
-std::shared_ptr<FitnessContext> Scheduler::getFitnessContext(std::shared_ptr<HW> hw) {
+std::shared_ptr<FitnessContext> Scheduler::getFitnessContext(std::shared_ptr<Homework> hw) {
 	return std::make_shared<FitnessContext>();//TODO: do this
 }
 

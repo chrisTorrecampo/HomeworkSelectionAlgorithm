@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "Thread.h"
+#include "Homework.h"
 
 class FitnessContext{
 public:

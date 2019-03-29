@@ -8,16 +8,8 @@
 #include "Context.h"          //predefines Scheduler
 #include "FitnessContext.h"
 
-class HW {
-public:
-
-};
-
-class Course {
-public:
-	double getGPA() { return 0; };
-	void addHW(std::shared_ptr<HW> h) {};//adds HW to list
-};
+#include "Homework.h"
+#include "Course.h"
 
 class Scheduler : public std::enable_shared_from_this<Scheduler>
 {
@@ -32,9 +24,9 @@ public:
 	void run();
 
 	void addNewCourse(Course c);
-	void addNewHW(int index, std::shared_ptr<HW> hw);
+	void addNewHW(int index, std::shared_ptr<Homework> hw);
 	//std::shared_ptr<Thread> preempt(std::shared_ptr<Thread> thread);//preempt the current thread on the CPU //if we do partial HW this may be useful
-	void finishHW(std::shared_ptr<HW> hw);//move a specific hw from to Finished List
+	void finishHW(std::shared_ptr<Homework> hw);//move a specific hw from to Finished List
 
 	void setStrat(std::shared_ptr<ScheduleStrategy> s);
 
@@ -44,7 +36,7 @@ public:
 	std::shared_ptr<Context> context;
 	std::shared_ptr<ScheduleStrategy> strat;
 
-	std::shared_ptr<FitnessContext> getFitnessContext(std::shared_ptr<HW> hw);
+	std::shared_ptr<FitnessContext> getFitnessContext(std::shared_ptr<Homework> hw);
 
 	double getMeanGPA();
 
