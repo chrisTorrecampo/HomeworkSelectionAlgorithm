@@ -34,13 +34,7 @@ Scheduler & Scheduler::operator=(const Scheduler & s) {
 }
 
 void Scheduler::run() {
-	if (!cpu->run()) { //run cpu; if thread has completed: 
-		strat->schedule();
-		return;
-	}
-
-	//otherwise run the strategy to see if we preempt
-	strat->run();
+	strat->schedule();
 }
 
 void Scheduler::addNewCourse(Course c) {
@@ -51,75 +45,28 @@ void Scheduler::addNewHW(int index, std::shared_ptr<HW> hw) {
 	courses[index].addHW(hw);
 }
 
-void Scheduler::readyThread(std::shared_ptr<Thread> thread) { //move a specific thread from Blocked List to Ready List
-	if (std::find(blockedList->begin(), blockedList->end(), thread) != blockedList->end()) { //TODO: use the iterator to make this more effecient
-		blockedList->remove(thread);
-		readyList->push_back(thread);
-	}
-}
 
-void Scheduler::blockThread(std::shared_ptr<Thread> thread) { //move a specific thread from Ready List to Blocked List
-	if (std::find(readyList->begin(), readyList->end(), thread) != readyList->end()) { //TODO: use the iterator to make this more effecient
-		readyList->remove(thread);
-		blockedList->push_back(thread);
-	}
-}
-
-std::shared_ptr<Thread> Scheduler::preempt(std::shared_ptr<Thread> thread) { //preempt the current thread on the CPU
-	thread->numBursts++;
-	return cpu->setWorkingThread(thread);
-}
-
-void Scheduler::finishThread(std::shared_ptr<Thread> thread) { //move a specific thread from CPU to Finished List
-		finishedList->push_back(thread);
-}
-
-bool Scheduler::isFinished(){
-	return readyList->size() == 0 && blockedList->size() == 0;
-}
-
-size_t Scheduler::numFinished(){
-	return finishedList->size();
-}
+//std::shared_ptr<Thread> Scheduler::preempt(std::shared_ptr<Thread> thread) { //preempt the current thread on the CPU
+//	thread->numBursts++;
+//	return cpu->setWorkingThread(thread);
+//}
 
 void Scheduler::setStrat(std::shared_ptr<ScheduleStrategy> s){
 	strat = s;
 	strat->setContext(getContext());
 }
 
-/*
 std::shared_ptr<Context> Scheduler::getContext() {
 	if (context == NULL) {
-		context = std::make_shared<Context>(finishedList, readyList, blockedList);
-																				  //use this here because we can't get a shared_ptr from this until after contruction
-	}
-
-	return context;
-}
-*/
-
-std::shared_ptr<Context> Scheduler::getContext() {
-	if (context == NULL) {
-		context = std::make_shared<Context>(finishedList, readyList, blockedList, shared_from_this());
+		context = std::make_shared<Context>(courses, shared_from_this());
 		//This can't be done until after construction because we can't get a shared_ptr from this until after contruction
 	}
 
 	return context;
 }
 
-std::shared_ptr<Thread> Scheduler::getCurrentWorkingThread() {
-	return cpu->getWorkingThread();
-}
-
-std::shared_ptr<FitnessContext> Scheduler::getFitnessContext(std::shared_ptr<Thread> thread) {
-	return std::make_shared<FitnessContext>(thread->numBursts,
-											cpu->expectedBurstLeft(),
-											readyList->size(),
-											blockedList->size(),
-											finishedList->size(),
-											thread->timeSinceLastPremption,
-											thread->timeSinceLastSwitched
-		);
+std::shared_ptr<FitnessContext> Scheduler::getFitnessContext(std::shared_ptr<HW> hw) {
+	return std::make_shared<FitnessContext>();//TODO: do this
 }
 
 double Scheduler::getMeanGPA() {

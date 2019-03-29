@@ -2,8 +2,7 @@
 
 #include <List>
 #include <memory>
-
-#include "CPU.h"
+#include <vector>
 
 #include "ScheduleStrategy.h" //predefines Context
 #include "Context.h"          //predefines Scheduler
@@ -24,7 +23,7 @@ class Scheduler : public std::enable_shared_from_this<Scheduler>
 {
 public:
 	Scheduler();
-	Scheduler(std::shared_ptr<CPU> c, std::shared_ptr<ScheduleStrategy> s, size_t cst);
+	Scheduler(std::shared_ptr<ScheduleStrategy> s);
 	~Scheduler();
 
 	Scheduler(const Scheduler &s);
@@ -32,13 +31,10 @@ public:
 
 	void run();
 
-	void addNewCourse(std::shared_ptr<Course> c);
+	void addNewCourse(Course c);
 	void addNewHW(int index, std::shared_ptr<HW> hw);
 	//std::shared_ptr<Thread> preempt(std::shared_ptr<Thread> thread);//preempt the current thread on the CPU //if we do partial HW this may be useful
 	void finishHW(std::shared_ptr<HW> hw);//move a specific hw from to Finished List
-
-	bool isFinished();
-	size_t numFinished();
 
 	void setStrat(std::shared_ptr<ScheduleStrategy> s);
 
@@ -48,8 +44,7 @@ public:
 	std::shared_ptr<Context> context;
 	std::shared_ptr<ScheduleStrategy> strat;
 
-	std::shared_ptr<Thread> getCurrentWorkingThread();
-	std::shared_ptr<FitnessContext> getFitnessContext(std::shared_ptr<Thread> thread);
+	std::shared_ptr<FitnessContext> getFitnessContext(std::shared_ptr<HW> hw);
 
 	double getMeanGPA();
 
