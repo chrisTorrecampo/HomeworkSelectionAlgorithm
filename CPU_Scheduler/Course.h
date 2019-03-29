@@ -45,4 +45,8 @@ public:
 
 		return *this;
 	}
+
+	double getGPA();
+
+	void addHW(std::shared_ptr<Homework> h);
 };

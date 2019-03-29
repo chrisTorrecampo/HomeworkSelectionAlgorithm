@@ -136,6 +136,7 @@
     <ClInclude Include="Thread.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Course.cpp" />
     <ClCompile Include="CPU.cpp" />
     <ClCompile Include="FIFO_Strategy.cpp" />
     <ClCompile Include="GA_Fitness.cpp" />
