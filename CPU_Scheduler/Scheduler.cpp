@@ -71,9 +71,23 @@ std::shared_ptr<FitnessContext> Scheduler::getFitnessContext(std::shared_ptr<Hom
 }
 
 double Scheduler::getKnowledge() {
-	bool prerequisites = new bool[readOrder.size()];
+	bool* prerequisites = new bool[readOrder.size()];
 	
+	double knowelege = 0;
 
+	const double penalty = 0.1;
+
+	for (std::shared_ptr<Homework > h : readOrder) {
+		double hwKnowledge = h->getLiquidKnowldge();
+		prerequisites[h->getchapterNum()] = true;
+		for (int i = h->getchapterNum() - 1; i > 0; i--) {
+			if (!prerequisites[i]) {
+				//penalty for skipping chapters
+				hwKnowledge *= 1 - ((double)i * penalty);
+			}
+			knowelege += hwKnowledge;
+		}
+	}
 
 	return 0;
 }
