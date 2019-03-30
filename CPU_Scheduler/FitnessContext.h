@@ -12,7 +12,7 @@ public:
 		willingness = w;
 		abilities = a;
 	}
-
+	//hi
 	//Homework Public Vars
 	size_t time;
 	size_t diff;
