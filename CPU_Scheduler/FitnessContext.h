@@ -1,33 +1,23 @@
 #pragma once
 #include <memory>
-#include "Thread.h"
+#include <vector>
+
 
 class FitnessContext{
 public:
-	FitnessContext(size_t nb, size_t ebt, size_t rls, size_t bls, size_t fls, size_t tslp, size_t tsls) {
-		numBursts = nb;
-		expectedBurstTime = ebt;
-
-		BL_RL_S = ((double)bls) / ((double)rls);
-		FL_RL_S = ((double)fls) / ((double)rls);
-		FL_BL_S = ((double)fls) / ((double)bls);
-		if (rls == 0) { //TODO: make this cleaner
-			BL_RL_S = FL_RL_S = 0;
-		}
-		if (bls == 0) {
-			FL_BL_S = 0;
-		}
-
-		timeSinceLastPremption = tslp;
-		timeSinceLastSwitched = tsls;
+	FitnessContext(size_t t, double d, size_t p, double w, std::vector<std::pair<std::string, double>> a) {
+		time = t;
+		diff = d;
+		points = p;
+		willingness = w;
+		abilities = a;
 	}
 
-	size_t numBursts;
-	size_t expectedBurstTime;
-	double BL_RL_S;
-	double FL_RL_S;
-	double FL_BL_S;
-	size_t timeSinceLastPremption;
-	size_t timeSinceLastSwitched;
-	//TODO: time spent in IO?
+	//Homework Public Vars
+	size_t time;
+	size_t diff;
+	size_t points;
+	double willingness;
+	std::vector<std::pair<std::string, double>> abilities;
+
 };

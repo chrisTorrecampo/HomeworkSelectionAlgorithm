@@ -4,6 +4,10 @@
 #include <vector>
 
 class Homework {
+private:
+	int chapterNum;
+	double liquidKnowledge;
+
 public:
 	size_t time;
 	double diff;
@@ -13,6 +17,9 @@ public:
 	std::vector<std::pair<std::string, double>> abilities;
 
 	Homework() {
+		chapterNum = 0;
+		liquidKnowledge = 0.0;
+
 		time = 0;
 		diff = 0;
 		points = 0;
@@ -20,7 +27,10 @@ public:
 		name = "";
 	}
 
-	Homework(size_t t, double d, size_t p, double w, std::string n, std::vector<std::pair<std::string, double>> a) {
+	Homework(int cN, double lK, size_t t, double d, size_t p, double w, std::string n, std::vector<std::pair<std::string, double>> a) {
+		chapterNum = cN;
+		liquidKnowledge = lK;
+
 		time = t;
 		diff = d;
 		points = p;
@@ -35,6 +45,9 @@ public:
 
 	//Shallow Copy
 	Homework(const Homework &h) {
+		chapterNum = h.getchapterNum;
+		liquidKnowledge = h.getLiquidKnowldge;
+
 		time = h.time;
 		diff = h.diff;
 		points = h.points;
@@ -46,6 +59,9 @@ public:
 
 	Homework& operator=(const Homework &h) {
 		if (this != &h) {
+			chapterNum = h.getchapterNum;
+			liquidKnowledge = h.getLiquidKnowldge;
+
 			time = h.time;
 			diff = h.diff;
 			points = h.points;
@@ -54,7 +70,10 @@ public:
 
 			abilities = h.abilities;
 		}
-
 		return *this;
 	}
+
+	int getchapterNum();
+
+	double getLiquidKnowldge();
 };
