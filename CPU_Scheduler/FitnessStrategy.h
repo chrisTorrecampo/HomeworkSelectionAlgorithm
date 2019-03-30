@@ -5,7 +5,7 @@ class FitnessStrategy {
 public:
 
 	//pure virtual
-	virtual double hwFitness(std::shared_ptr<HW>, std::shared_ptr<FitnessContext> fc
+	virtual double hwFitness(std::shared_ptr<Homework>, std::shared_ptr<FitnessContext> fc
 	) = 0;
 
 protected:

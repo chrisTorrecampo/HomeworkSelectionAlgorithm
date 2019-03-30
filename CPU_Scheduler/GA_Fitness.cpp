@@ -6,7 +6,7 @@
 #include "Perceptron_FitnessStrategy.h"
 #include "GeneticOrganism_Strategy.h"
 
-GA_Fitness::GA_Fitness(std::vector<size_t> ds) {
+GA_Fitness::GA_Fitness(std::shared_ptr<std::list<std::shared_ptr<Homework>>> ds) {
 	schedule = std::make_shared<Scheduler>();	
 	dataSet = ds;
 }
@@ -32,25 +32,19 @@ GA_Fitness & GA_Fitness::operator=(const GA_Fitness & ga) {
 double GA_Fitness::fitness(std::shared_ptr<Gene> in) {
 	pFit = std::make_shared<Perceptron_FitnessStrategy>(in->genes);
 	schedule->setStrat(std::make_shared<GeneticOrganism_Strategy>(pFit, timeQuantum));
-	for (size_t i = 0; i < dataSet.size(); i++) { //input data
-		schedule->addNewThread(std::vector<size_t>{ dataSet });
-	}
+	
+	schedule->addNewHW(dataSet);
 
 	while (!schedule->isFinished()) {
 		schedule->run();
-		//std::cout << s->numFinished() << "\n";
 	}
 
-	double out = schedule->getMeanWaitTime();
+	double out = schedule->getKnowledge();
 	//double out = schedule->getMeanSquaredWaitTime();
 
 	schedule->reset();
 
-	if (out == 0) {
-		return std::numeric_limits<double>::max();
-	}
-
-	return 1 / out;
+	return out;
 }
 
 /*
@@ -61,6 +55,6 @@ void GA_Fitness::inputData(std::vector<std::vector<size_t>> dataSet) { //TODO: a
 }
 */
 
-void GA_Fitness::inputData(std::vector<size_t> ds) {
+void GA_Fitness::inputData(std::shared_ptr<std::list<std::shared_ptr<Homework>>> ds) {
 	dataSet = ds;
 }

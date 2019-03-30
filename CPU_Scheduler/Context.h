@@ -4,6 +4,8 @@
 #include <memory>
 #include <vector>
 
+#include "Homework.h"
+
 class Scheduler;
 
 class Context {

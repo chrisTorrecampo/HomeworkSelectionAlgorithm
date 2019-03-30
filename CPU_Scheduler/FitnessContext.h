@@ -15,7 +15,7 @@ public:
 
 	//Homework Public Vars
 	size_t time;
-	size_t diff;
+	double diff;
 	size_t points;
 	double willingness;
 	int category;

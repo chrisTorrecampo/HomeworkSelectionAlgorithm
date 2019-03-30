@@ -45,8 +45,8 @@ public:
 	}
 
 	Homework(const Homework &h) {
-		chapterNum = h.getchapterNum;
-		liquidKnowledge = h.getLiquidKnowldge;
+		chapterNum = h.chapterNum;
+		liquidKnowledge = h.liquidKnowledge;
 
 		time = h.time;
 		diff = h.diff;
@@ -58,8 +58,8 @@ public:
 
 	Homework& operator=(const Homework &h) {
 		if (this != &h) {
-			chapterNum = h.getchapterNum;
-			liquidKnowledge = h.getLiquidKnowldge;
+			chapterNum = h.chapterNum;
+			liquidKnowledge = h.liquidKnowledge;
 
 			time = h.time;
 			diff = h.diff;

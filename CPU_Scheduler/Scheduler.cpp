@@ -41,6 +41,10 @@ void Scheduler::addNewHW(std::shared_ptr<Homework> hw) {
 	homeworkToDo->push_back(hw);
 }
 
+void Scheduler::addNewHW(std::shared_ptr<std::list<std::shared_ptr<Homework>>> hws) {
+	homeworkToDo = hws;
+}
+
 void Scheduler::readHW(std::shared_ptr<Homework> hw) {
 	readOrder.push_back(hw);
 	homeworkToDo->remove(hw);
@@ -94,4 +98,11 @@ double Scheduler::getKnowledge() {
 
 void Scheduler::reset(){
 	homeworkToDo->clear();
+}
+
+bool Scheduler::isFinished() {
+	if (homeworkToDo = NULL) {
+		return true;
+	}
+	return homeworkToDo->size() == 0;
 }

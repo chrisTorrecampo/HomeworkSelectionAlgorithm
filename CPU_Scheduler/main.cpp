@@ -4,8 +4,6 @@
 #include <time.h>
 
 #include "Scheduler.h"
-#include "FIFO_Strategy.h"
-#include "RoundRobin_Strategy.h"
 #include "Perceptron_FitnessStrategy.h"
 #include "Population.h"
 
@@ -57,18 +55,6 @@ int main(int argc, char *argv[]){
 
 	p.addRandomPops(100, 0, 10);
 	p.runGenerations(500);
-
-	std::shared_ptr<Scheduler> s = std::make_shared<Scheduler>();
-	s->setStrat(std::make_shared<RoundRobin_Strategy>(4));
-	for (int i = 0; i < dataSet.size(); i++) {
-		s->addNewThread(std::vector<size_t>{dataSet[i]});
-	}
-
-	while (!s->isFinished()) {
-		s->run();
-	}
-
-	std::cout << "Round Robin Fitness: " << 1 / s->getMeanWaitTime() << "\n";
 
 	int x;
 	std::cin >> x;

@@ -131,7 +131,6 @@
     <ClInclude Include="ScheduleStrategy.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Course.cpp" />
     <ClCompile Include="GA_Fitness.cpp" />
     <ClCompile Include="GeneticOrganism_Strategy.cpp" />
     <ClCompile Include="Homework.cpp" />

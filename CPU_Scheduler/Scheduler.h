@@ -23,6 +23,7 @@ public:
 	void run();
 
 	void addNewHW(std::shared_ptr<Homework> hw);
+	void addNewHW(std::shared_ptr<std::list<std::shared_ptr<Homework>>> hws);
 	//std::shared_ptr<Thread> preempt(std::shared_ptr<Thread> thread);//preempt the current thread on the CPU //if we do partial HW this may be useful
 	void readHW(std::shared_ptr<Homework> hw);//move a specific hw from to ReadOrder
 
@@ -39,6 +40,8 @@ public:
 	double getKnowledge();
 
 	void reset();
+
+	bool isFinished();
 
 private:
 
