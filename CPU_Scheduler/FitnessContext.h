@@ -1,7 +1,6 @@
 #pragma once
 #include <memory>
 #include <vector>
-#include "Homework.h"
 
 class FitnessContext {
 public:
@@ -11,6 +10,25 @@ public:
 		points = p;
 		willingness = w;
 		category = c;
+	}
+
+	FitnessContext(const FitnessContext &c) { //TODO: I think the problem is here
+		time = c.time;
+		diff = c.diff;
+		points = c.points;
+		willingness = c.willingness;
+		category = c.category;
+	}
+
+	FitnessContext& operator=(const FitnessContext &c) {
+		if (this != &c) {
+			time = c.time;
+			diff = c.diff;
+			points = c.points;
+			willingness = c.willingness;
+			category = c.category;
+		}
+		return *this;
 	}
 
 	//Homework Public Vars

@@ -1,6 +1,8 @@
 #pragma once
 #include "FitnessContext.h"
 
+class Homework;
+
 class FitnessStrategy {
 public:
 

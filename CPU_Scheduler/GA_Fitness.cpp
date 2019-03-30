@@ -6,7 +6,7 @@
 #include "Perceptron_FitnessStrategy.h"
 #include "GeneticOrganism_Strategy.h"
 
-GA_Fitness::GA_Fitness(std::shared_ptr<std::list<std::shared_ptr<Homework>>> ds) {
+GA_Fitness::GA_Fitness(std::list<std::shared_ptr<Homework>> ds) {
 	schedule = std::make_shared<Scheduler>();	
 	dataSet = ds;
 }
@@ -55,6 +55,6 @@ void GA_Fitness::inputData(std::vector<std::vector<size_t>> dataSet) { //TODO: a
 }
 */
 
-void GA_Fitness::inputData(std::shared_ptr<std::list<std::shared_ptr<Homework>>> ds) {
+void GA_Fitness::inputData(std::list<std::shared_ptr<Homework>> ds) {
 	dataSet = ds;
 }

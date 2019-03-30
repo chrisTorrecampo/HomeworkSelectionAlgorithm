@@ -4,7 +4,7 @@
 #include "Scheduler.h"
 
 Scheduler::Scheduler() { //needs Strategy assigned after the constructor because strategy needs a pointer the the scheduler
-	//strat = std::make_shared<FIFO_Strategy>(getContext(this));
+	//strat = <FIFO_Strategy>(getContext(this));
 }
 
 Scheduler::Scheduler(std::shared_ptr<ScheduleStrategy> s){
@@ -38,16 +38,16 @@ void Scheduler::run() {
 
 
 void Scheduler::addNewHW(std::shared_ptr<Homework> hw) {
-	homeworkToDo->push_back(hw);
+	homeworkToDo.push_back(hw);
 }
 
-void Scheduler::addNewHW(std::shared_ptr<std::list<std::shared_ptr<Homework>>> hws) {
+void Scheduler::addNewHW(std::list<std::shared_ptr<Homework>> hws) {
 	homeworkToDo = hws;
 }
 
 void Scheduler::readHW(std::shared_ptr<Homework> hw) {
 	readOrder.push_back(hw);
-	homeworkToDo->remove(hw);
+	homeworkToDo.remove(hw);
 }
 
 
@@ -66,12 +66,17 @@ std::shared_ptr<Context> Scheduler::getContext() {
 		context = std::make_shared<Context>(homeworkToDo, shared_from_this());
 		//This can't be done until after construction because we can't get a shared_ptr from this until after contruction
 	}
-
 	return context;
 }
 
 std::shared_ptr<FitnessContext> Scheduler::getFitnessContext(std::shared_ptr<Homework> hw) {
-	return std::make_shared<FitnessContext>();//TODO: do this
+	return std::make_shared<FitnessContext>(
+		hw->time,
+		hw->diff,
+		hw->points,
+		hw->willingness,
+		hw->category
+		);
 }
 
 double Scheduler::getKnowledge() {
@@ -97,12 +102,9 @@ double Scheduler::getKnowledge() {
 }
 
 void Scheduler::reset(){
-	homeworkToDo->clear();
+	homeworkToDo.clear();
 }
 
 bool Scheduler::isFinished() {
-	if (homeworkToDo = NULL) {
-		return true;
-	}
-	return homeworkToDo->size() == 0;
+	return homeworkToDo.size() == 0;
 }

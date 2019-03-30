@@ -11,16 +11,16 @@ class Scheduler;
 class Context {
 public:
 
-	std::shared_ptr<std::list<std::shared_ptr<Homework>>> homeworkToDo;
+	std::list<std::shared_ptr<Homework>> homeworkToDo;
 
 	std::shared_ptr<Scheduler> scheduler;
 	
-	Context(std::shared_ptr<std::list<std::shared_ptr<Homework>>> h, std::shared_ptr<Scheduler> s) {
+	Context(std::list<std::shared_ptr<Homework>> h, std::shared_ptr<Scheduler> s) {
 		homeworkToDo = h;
 		scheduler = s;
 	}
 
-	Context(std::shared_ptr<std::list<std::shared_ptr<Homework>>> h) {
+	Context(std::list<std::shared_ptr<Homework>> h) {
 		homeworkToDo = h;
 	}
 

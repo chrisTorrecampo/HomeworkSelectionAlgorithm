@@ -3,20 +3,20 @@
 
 #include "Population.h"
 
-Population::Population(size_t ng, std::vector<size_t> ds) {
+Population::Population(size_t ng,std::list<std::shared_ptr<Homework>> ds) {
 	numGenes = ng;
 	getSeed();
 	gaFit = GA_Fitness(ds);
 }
 
-Population::Population(size_t ng, std::vector<size_t> ds, size_t popsToInitialize) {
+Population::Population(size_t ng, std::list<std::shared_ptr<Homework>> ds, size_t popsToInitialize) {
 	numGenes = ng;
 	getSeed();
 	addRandomPops(popsToInitialize);
 	gaFit = GA_Fitness(ds);
 }
 
-Population::Population(size_t ng, std::vector<size_t> ds, std::vector<std::shared_ptr<Gene>> g) {
+Population::Population(size_t ng, std::list<std::shared_ptr<Homework>> ds, std::vector<std::shared_ptr<Gene>> g) {
 	numGenes = ng;
 	getSeed();
 	pop = g;
