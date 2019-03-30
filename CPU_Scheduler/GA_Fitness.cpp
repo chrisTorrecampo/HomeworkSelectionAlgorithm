@@ -35,12 +35,17 @@ double GA_Fitness::fitness(std::shared_ptr<Gene> in, size_t maxTime) {
 	
 	schedule->addNewHW(dataSet);
 
-	while (!schedule->isFinished(maxTime)) {
+	int timeLeft = schedule->timeLeft(maxTime);
+	while (timeLeft > 0) {
 		schedule->run();
+		timeLeft = schedule->timeLeft(maxTime);
 	}
 
 	double out = schedule->getKnowledge();
 	//double out = schedule->getMeanSquaredWaitTime();
+	if (timeLeft < 0) {
+		out -= 1000;
+	}
 
 	schedule->reset();
 

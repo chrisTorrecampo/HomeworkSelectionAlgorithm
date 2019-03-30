@@ -110,10 +110,10 @@ bool Scheduler::isFinished() {
 	return homeworkToDo.size() == 0;
 }
 
-bool Scheduler::isFinished(size_t mt) {
-	size_t timeLeft = mt;
+int Scheduler::timeLeft(size_t mt) {
+	int out = (int)mt;
 	for (std::shared_ptr<Homework> h : readOrder) {
-		timeLeft -= h->time;
+		out -= h->time;
 	}
-	return timeLeft <= 0;
+	return out;
 }
