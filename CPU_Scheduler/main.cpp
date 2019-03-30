@@ -20,7 +20,7 @@ int main(int argc, char *argv[]){
 		//dataSet->push_back((size_t)(rand() % 5 + 1));
 	}
 
-	Population p = Population(11, dataSet);
+	Population p = Population(11, dataSet, 3);
 
 	p.addRandomPops(100, 0, 10);
 	p.runGenerations(500);

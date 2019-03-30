@@ -3,9 +3,9 @@
 #include <limits>
 constexpr double lowest_double = std::numeric_limits<double>::lowest();
 
-GeneticOrganism_Strategy::GeneticOrganism_Strategy(std::shared_ptr<FitnessStrategy> fs, int ft){
+GeneticOrganism_Strategy::GeneticOrganism_Strategy(std::shared_ptr<FitnessStrategy> fs){
 	fit = fs;
-	fitTime = ft;
+	//maxTime = mt;
 }
 
 
