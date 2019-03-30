@@ -13,7 +13,7 @@ public:
 	GA_Fitness(const GA_Fitness &ga);
 	GA_Fitness& operator=(const GA_Fitness &ga);
 
-	double fitness(std::shared_ptr<Gene> in);
+	double fitness(std::shared_ptr<Gene> in, size_t maxTime);
 	void inputData(std::list<std::shared_ptr<Homework>> dataSet);
 
 private:

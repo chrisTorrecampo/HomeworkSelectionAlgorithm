@@ -29,13 +29,13 @@ GA_Fitness & GA_Fitness::operator=(const GA_Fitness & ga) {
 	return *this;
 }
 
-double GA_Fitness::fitness(std::shared_ptr<Gene> in) {
+double GA_Fitness::fitness(std::shared_ptr<Gene> in, size_t maxTime) {
 	pFit = std::make_shared<Perceptron_FitnessStrategy>(in->genes);
-	schedule->setStrat(std::make_shared<GeneticOrganism_Strategy>(pFit, timeQuantum));
+	schedule->setStrat(std::make_shared<GeneticOrganism_Strategy>(pFit));
 	
 	schedule->addNewHW(dataSet);
 
-	while (!schedule->isFinished()) {
+	while (!schedule->isFinished(maxTime)) {
 		schedule->run();
 	}
 

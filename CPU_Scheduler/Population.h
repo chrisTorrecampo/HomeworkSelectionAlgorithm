@@ -10,10 +10,10 @@
 class Population
 {
 public:
-	Population(size_t ng, std::list<std::shared_ptr<Homework>> ds);                                       //empty
-	Population(size_t ng, std::list<std::shared_ptr<Homework>> ds, size_t popsToInitialize);              //initialize x random organisms
-	Population(size_t ng, std::list<std::shared_ptr<Homework>> ds, std::vector<std::shared_ptr<Gene>> p);   //initialize from vector
-	Population(size_t ng, FILE file);                            //initialize from file
+	Population(size_t ng, std::list<std::shared_ptr<Homework>> ds, size_t t);                                       //empty
+	Population(size_t ng, std::list<std::shared_ptr<Homework>> ds, size_t t, size_t popsToInitialize);              //initialize x random organisms
+	Population(size_t ng, std::list<std::shared_ptr<Homework>> ds, size_t t, std::vector<std::shared_ptr<Gene>> p);   //initialize from vector
+	Population(size_t ng, size_t t, FILE file);                            //initialize from file
 	~Population();
 
 	void addRandomPops(size_t numPops);
@@ -27,6 +27,7 @@ public:
 
 private:
 	GA_Fitness gaFit;
+	size_t maxTime;
 
 	std::vector<std::shared_ptr<Gene>> pop = {};
 	size_t numGenes;

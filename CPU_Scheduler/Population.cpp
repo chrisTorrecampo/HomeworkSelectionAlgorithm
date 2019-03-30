@@ -3,29 +3,33 @@
 
 #include "Population.h"
 
-Population::Population(size_t ng,std::list<std::shared_ptr<Homework>> ds) {
+Population::Population(size_t ng,std::list<std::shared_ptr<Homework>> ds, size_t t) {
 	numGenes = ng;
 	getSeed();
 	gaFit = GA_Fitness(ds);
+	maxTime = t;
 }
 
-Population::Population(size_t ng, std::list<std::shared_ptr<Homework>> ds, size_t popsToInitialize) {
+Population::Population(size_t ng, std::list<std::shared_ptr<Homework>> ds, size_t t, size_t popsToInitialize) {
 	numGenes = ng;
 	getSeed();
 	addRandomPops(popsToInitialize);
 	gaFit = GA_Fitness(ds);
+	maxTime = t;
 }
 
-Population::Population(size_t ng, std::list<std::shared_ptr<Homework>> ds, std::vector<std::shared_ptr<Gene>> g) {
+Population::Population(size_t ng, std::list<std::shared_ptr<Homework>> ds, size_t t, std::vector<std::shared_ptr<Gene>> g) {
 	numGenes = ng;
 	getSeed();
 	pop = g;
 	gaFit = GA_Fitness(ds);
+	maxTime = t;
 }
 
-Population::Population(size_t ng, FILE file) {
+Population::Population(size_t ng, size_t t, FILE file) {
 	numGenes = ng;
 	getSeed();
+	maxTime = t;
 	//TODO: import ds from file
 }
 
@@ -78,7 +82,7 @@ void Population::getSeed() {
 
 void Population::testPop() {
 	for (size_t i = 0; i < pop.size(); i++) {
-		pop[i]->fitness = gaFit.fitness(pop[i]);
+		pop[i]->fitness = gaFit.fitness(pop[i], maxTime);
 	}
 }
 

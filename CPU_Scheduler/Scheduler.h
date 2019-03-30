@@ -40,6 +40,7 @@ public:
 	void reset();
 
 	bool isFinished();
+	bool isFinished(size_t mt);
 
 	std::list<std::shared_ptr<Homework>> homeworkToDo;
 	std::vector<std::shared_ptr<Homework>> readOrder;
