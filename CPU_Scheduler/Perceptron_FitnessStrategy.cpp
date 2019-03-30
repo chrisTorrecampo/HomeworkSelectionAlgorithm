@@ -16,6 +16,5 @@ Perceptron_FitnessStrategy::~Perceptron_FitnessStrategy() {
 }
 
 double Perceptron_FitnessStrategy::hwFitness(std::shared_ptr<Homework>, std::shared_ptr<FitnessContext> fc) {
-	return fitnessPerceptron->getValue(std::vector<double>{
-	);
+	return fitnessPerceptron->getValue(std::vector<double>{});
 }

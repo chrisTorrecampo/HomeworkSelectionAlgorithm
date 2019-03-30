@@ -9,7 +9,6 @@
 #include "FitnessContext.h"
 
 #include "Homework.h"
-#include "Course.h"
 
 class Scheduler : public std::enable_shared_from_this<Scheduler>
 {
@@ -37,14 +36,14 @@ public:
 
 	std::shared_ptr<FitnessContext> getFitnessContext(std::shared_ptr<Homework> hw);
 
-	double getMeanGPA();
+	double getKnowledge();
 
 	void reset();
 
 private:
 
 	std::shared_ptr<std::list<std::shared_ptr<Homework>>> homeworkToDo;
-	std::vector<std::shared_ptr<Homework>> ReadOrder;
+	std::vector<std::shared_ptr<Homework>> readOrder;
 	size_t timeMax;
 };
 

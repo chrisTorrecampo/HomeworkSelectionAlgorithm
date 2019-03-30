@@ -41,6 +41,11 @@ void Scheduler::addNewHW(std::shared_ptr<Homework> hw) {
 	homeworkToDo->push_back(hw);
 }
 
+void Scheduler::readHW(std::shared_ptr<Homework> hw) {
+	readOrder.push_back(hw);
+	homeworkToDo->remove(hw);
+}
+
 
 //std::shared_ptr<Thread> Scheduler::preempt(std::shared_ptr<Thread> thread) { //preempt the current thread on the CPU
 //	thread->numBursts++;
@@ -65,41 +70,14 @@ std::shared_ptr<FitnessContext> Scheduler::getFitnessContext(std::shared_ptr<Hom
 	return std::make_shared<FitnessContext>();//TODO: do this
 }
 
-double Scheduler::getMeanGPA() {
-	/*   //TODO: do this
-	if (homeworkToDo->size() == 0) {
-		return 1;
-	}
-	double meanWaitTime = 0;
-	for (Course c : homeworkToDo) {
-		meanWaitTime += c.getGPA();
-	}
+double Scheduler::getKnowledge() {
+	bool prerequisites = new bool[readOrder.size()];
+	
 
-	return meanWaitTime / courses.size();
-	*/
 
 	return 0;
 }
 
-/*
-//TODO: this needs to go in 
-
-double Scheduler::getMeanGPA() {
-	if (finishedList->size() == 0) {
-		//TODO: something went wrong. Throw something here
-		std::cout << "ERROR: / 0\n";
-	}
-	double meanWaitTime = 0;
-	std::list<std::shared_ptr<Thread>>::iterator it;
-	for (it = finishedList->begin(); it != finishedList->end(); ++it) {
-		meanWaitTime += (*it)->waitingTime;
-	}
-
-	return meanWaitTime / finishedList->size();
-}
-
-*/
-
 void Scheduler::reset(){
-	courses.clear();
+	homeworkToDo->clear();
 }
