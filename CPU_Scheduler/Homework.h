@@ -13,8 +13,8 @@ public:
 	double diff;
 	size_t points;
 	double willingness;
+	int category;
 	std::string name;
-	std::vector<std::pair<std::string, double>> abilities;
 
 	Homework() {
 		chapterNum = 0;
@@ -24,10 +24,11 @@ public:
 		diff = 0;
 		points = 0;
 		willingness = 0;
+		category = 0;
 		name = "";
 	}
 
-	Homework(int cN, double lK, size_t t, double d, size_t p, double w, std::string n, std::vector<std::pair<std::string, double>> a) {
+	Homework(int cN, double lK, size_t t, double d, size_t p, double w, int c, std::string n) {
 		chapterNum = cN;
 		liquidKnowledge = lK;
 
@@ -35,15 +36,14 @@ public:
 		diff = d;
 		points = p;
 		willingness = w;
+		category = c;
 		name = n;
-		abilities = a;
 	}
 
 	~Homework() {
 
 	}
 
-	//Shallow Copy
 	Homework(const Homework &h) {
 		chapterNum = h.getchapterNum;
 		liquidKnowledge = h.getLiquidKnowldge;
@@ -52,9 +52,8 @@ public:
 		diff = h.diff;
 		points = h.points;
 		willingness = h.willingness;
+		category = h.category;
 		name = h.name;
-
-		abilities = h.abilities;
 	}
 
 	Homework& operator=(const Homework &h) {
@@ -66,9 +65,8 @@ public:
 			diff = h.diff;
 			points = h.points;
 			willingness = h.willingness;
+			category = h.category;
 			name = h.name;
-
-			abilities = h.abilities;
 		}
 		return *this;
 	}

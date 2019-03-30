@@ -1,9 +1,9 @@
 #include "Homework.h"
 
 int Homework::getchapterNum() {
-	return this->chapterNum;
+	return chapterNum;
 }
 
 double Homework::getLiquidKnowldge() {
-	return this->liquidKnowledge;
+	return liquidKnowledge;
 }
