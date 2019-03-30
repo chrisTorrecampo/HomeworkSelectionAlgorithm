@@ -24,12 +24,6 @@
     <ClInclude Include="Context.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FIFO_Strategy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RoundRobin_Strategy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GeneticOrganism_Strategy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -57,24 +51,12 @@
     <ClInclude Include="Homework.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Course.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CPU.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scheduler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FIFO_Strategy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RoundRobin_Strategy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GeneticOrganism_Strategy.cpp">
