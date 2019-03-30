@@ -23,10 +23,9 @@ public:
 
 	void run();
 
-	void addNewCourse(Course c);
-	void addNewHW(int index, std::shared_ptr<Homework> hw);
+	void addNewHW(std::shared_ptr<Homework> hw);
 	//std::shared_ptr<Thread> preempt(std::shared_ptr<Thread> thread);//preempt the current thread on the CPU //if we do partial HW this may be useful
-	void finishHW(std::shared_ptr<Homework> hw);//move a specific hw from to Finished List
+	void readHW(std::shared_ptr<Homework> hw);//move a specific hw from to ReadOrder
 
 	void setStrat(std::shared_ptr<ScheduleStrategy> s);
 
@@ -44,7 +43,8 @@ public:
 
 private:
 
-	std::vector<Course> courses;
+	std::shared_ptr<std::list<std::shared_ptr<Homework>>> homeworkToDo;
+	std::vector<std::shared_ptr<Homework>> ReadOrder;
 	size_t timeMax;
 };
 

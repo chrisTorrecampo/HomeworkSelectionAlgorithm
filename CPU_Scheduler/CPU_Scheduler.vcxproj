@@ -118,7 +118,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Context.h" />
-    <ClInclude Include="Course.h" />
     <ClInclude Include="FitnessContext.h" />
     <ClInclude Include="FitnessStrategy.h" />
     <ClInclude Include="GA_Fitness.h" />
